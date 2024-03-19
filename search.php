@@ -1,6 +1,6 @@
 <?php
-// PHP script to handle form submission
-$remaining_sessions = 30; // Default value
+
+$remaining_sessions = 30; 
 $success_message = '';
 $error_message = '';
 

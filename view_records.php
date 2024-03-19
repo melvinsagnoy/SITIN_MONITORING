@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
 
         function deleteStudent(studentId) {
         if (confirm("Are you sure you want to delete this student?")) {
-            fetch('delete_record.php', { // Send DELETE request to separate file
+            fetch('delete_record.php', { 
                     method: 'DELETE',
                     body: JSON.stringify({
                         studentId: studentId
@@ -194,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
                 .then(data => {
                     if (data.success) {
                         alert(`Student with ID ${studentId} deleted successfully.`);
-                        // Optionally, you can remove the row from the table here if needed
+                    
                     } else {
                         alert(data.message);
                     }

@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
     const sidebar = document.getElementById('sidebar');
 
     menuToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('w-64'); // Toggle sidebar width
+        sidebar.classList.toggle('w-64'); 
         if (sidebar.classList.contains('w-64')) {
             sidebar.classList.remove('w-0');
         } else {
@@ -158,7 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
 
     function deleteStudent(studentId) {
         if (confirm("Are you sure you want to delete this student?")) {
-            fetch('<?php echo $_SERVER["PHP_SELF"]; ?>', { // Using PHP_SELF to target the same file
+            fetch('<?php echo $_SERVER["PHP_SELF"]; ?>', { 
                     method: 'DELETE',
                     body: JSON.stringify({
                         studentId: studentId
@@ -171,7 +171,7 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
                 .then(data => {
                     if (data.success) {
                         alert(`Student with ID ${studentId} deleted successfully.`);
-                        // Optionally, you can remove the row from the table here if needed
+                      
                     } else {
                         alert(data.message);
                     }
