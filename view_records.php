@@ -139,10 +139,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
                         <?php while ($row = $result->fetchArray(SQLITE3_ASSOC)): ?>
                         <tr class="text-white">
                             <td class="border px-4 py-2"><?php echo $row['id_number']; ?></td>
-                            <td class="border px-4 py-2"><?php echo $row['firstname']; ?></td>
-                            <td class="border px-4 py-2"><?php echo $row['lastname']; ?></td>
-                            <td class="border px-4 py-2"><?php echo $row['purpose']; ?></td>
-                            <td class="border px-4 py-2"><?php echo $row['lab']; ?></td>
+                            <td class="border px-4 py-2 capitalize	"><?php echo $row['firstname']; ?></td>
+                            <td class="border px-4 py-2 capitalize	"><?php echo $row['lastname']; ?></td>
+                            <td class="border px-4 py-2 capitalize	"><?php echo $row['purpose']; ?></td>
+                            <td class="border px-4 py-2 capitalize	"><?php echo $row['lab']; ?></td>
                             <td class="border px-4 py-2"><?php echo $row['time_in']; ?></td>
                             <td class="border px-4 py-2"><?php echo $row['time_out']; ?></td>
                             <td class="border px-4 py-2 text-green-400"><?php echo $row['status']; ?></td>

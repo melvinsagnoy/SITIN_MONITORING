@@ -147,19 +147,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-white">
-                                    <td class="border px-4 py-2"><?php echo $row['id_number']; ?></td>
-                                    <td class="border px-4 py-2"><?php echo $row['firstname']; ?></td>
-                                    <td class="border px-4 py-2"><?php echo $row['lastname']; ?></td>
+                                <tr class="text-white ">
+                                    <td class="border px-4 py-2 "><?php echo $row['id_number']; ?></td>
+                                    <td class="border px-4 py-2 capitalize	"><?php echo $row['firstname']; ?></td>
+                                    <td class="border px-4 py-2 capitalize	"><?php echo $row['lastname']; ?></td>
                                     <td class="border px-4 py-2"><?php echo $row['email']; ?></td>
-                                    <td class="border px-4 py-2">
+                                    <td class="border px-4 py-2 capitalize	">
                                         <form method="POST" action="">
                                             <input type="hidden" name="student_id" value="<?php echo $row['id_number']; ?>">
                                             <input type="hidden" name="firstname" value="<?php echo $row['firstname']; ?>">
                                             <input type="hidden" name="lastname" value="<?php echo $row['lastname']; ?>">
                                             <input  class = "text-black"type="text" name="purpose" placeholder="Purpose" required>
                                     </td>
-                                    <td class="border px-4 py-2 text-black">
+                                    <td class="border px-4 py-2 text-black capitalize	">
                                         <select name="lab_option" required>
                                             <option value="">Select Lab Option</option>
                                             <option value="lab 524">Lab 524</option>
