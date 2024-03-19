@@ -24,7 +24,7 @@
         </div>
         <ul class="mt-6 bg-gray-600">
             <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-                <a href="#">View Profile</a>
+                <a href="#">View Profiles</a>
             </li>
             <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
                 <a href="#">SITIN</a>
