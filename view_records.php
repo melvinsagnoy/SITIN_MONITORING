@@ -1,12 +1,10 @@
 <?php
-// PHP script to handle form submission
+
 $success_message = '';
 $error_message = '';
 
-// Initialize $result to prevent "Undefined variable" error
 $result = null;
 
-// Fetch sitin records from the sitin_student table
 $db = new SQLite3('sitin.db');
 $query = $db->prepare("
     SELECT s.id_number, st.firstname, st.lastname, s.purpose, s.lab, s.time_in, s.time_out, s.status
@@ -18,9 +16,9 @@ $result = $query->execute();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
     $student_id = $_POST['student_id'] ?? '';
     
-    // Check if the student ID is provided
+  
     if ($student_id) {
-        // Update the time_out field with the current timestamp
+        
         $current_time = date('Y-m-d H:i:s');
         $query = $db->prepare("UPDATE sitin_student SET time_out = :time_out, status = 'INACTIVE' WHERE id_number = :student_id AND status = 'ACTIVE'");
         $query->bindValue(':time_out', $current_time, SQLITE3_TEXT);
@@ -30,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
         
         if ($result) {
             $success_message = "Logged out successfully.";
-            // Fetch sitin records again after logout action to reflect the changes
+            
             $query = $db->prepare("
                 SELECT s.id_number, st.firstname, st.lastname, s.purpose, s.lab, s.time_in, s.time_out, s.status
                 FROM sitin_student s
@@ -38,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
             ");
             $result = $query->execute();
 
-            // Decrement remaining session count by 1
+            
             $decrement_query = $db->prepare("UPDATE sitin_student SET remaining_sessions = remaining_sessions - 1 WHERE id_number = :student_id");
             $decrement_query->bindValue(':student_id', $student_id, SQLITE3_TEXT);
             $decrement_result = $decrement_query->execute();
@@ -67,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
 
 <body class="flex min-h-screen bg-gray-500 font-mono">
 
-    <!-- Sidebar -->
+
     <div class="fixed inset-y-0 w-0 bg-white shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out bg-gray-600 text-white"
         id="sidebar">
         <div class="flex items-center justify-between px-4 mb-6 ">
@@ -106,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
         </ul>
     </div>
 
-    <!-- Main content -->
+  
     <div class="flex-1 px-8 py-6">
         <button id="menu-toggle" class="focus:outline-none">
             <svg class="h-6 w-6 text-white hover:text-gray-900" viewBox="0 0 24 24" fill="none"
@@ -151,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
                             <td class="border px-4 py-2">
                                 <form method="POST" action="">
                                     <input type="hidden" name="student_id" value="<?php echo $row['id_number']; ?>">
-                                    <button type="submit" name="logout" class="text-red-100 bg-green-800">Logout</button>
+                                    <button type="submit" name="logout" class="text-red-100 hover:text-red-400">Logout</button>
                                 </form>
                             </td>
                         </tr>

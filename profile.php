@@ -41,7 +41,7 @@
         </ul>
     </div>
 
-    <!-- Main content -->
+
     <div class="flex-1 px-8 py-6">
         <button id="menu-toggle" class="focus:outline-none">
             <svg class="h-6 w-6 text-white hover:text-gray-900" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

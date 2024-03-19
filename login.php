@@ -54,9 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body class="flex min-h-screen ">
-  <div class="w-1/2 bg-gray-600 p-8 text-6xl font-mono">
-    <br><br><br><br><br>
-    <h1 class="text-white">Unlocking Insights, Optimizing Resources: Introducing the <h1 class = "text-green-400">CCS SITIN</h1><h1 class = "text-white">Monitoring System</h1>
+  <div class="w-1/2 bg-gray-600 p-8 text-5xl font-mono">
+    <br><br><br>
+    <h1 class="text-white font-mono">Unlocking Insights, Optimizing Resources: Introducing the <h1 class = "text-green-400 font-mono">CCS SITIN</h1><h1 class = "text-white">Monitoring System</h1>
   </div>
 
   <div class="w-1/2 flex items-center font-mono bg-gray-600" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="mb-4">
           <input type="password" name="password" placeholder="Password" class="border rounded-lg px-4 py-2 w-full">
         </div>
-        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg">Login</button>
+        <button type="submit" class="bg-gray-700 hover:bg-gray-400 hover:text-green-400 text-white py-2 px-4 rounded-lg">Login</button>
         <div class="text-center mt-4">
           <a class="text-white ">Don't have an account?</a> <a href="register.php" class="text-green-400">Register</a>
         </div>

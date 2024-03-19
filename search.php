@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
         
         if ($result) {
             $success_message = "SITIN record successfully stored.";
-            // No need to decrement remaining session count here
+            
         } else {
             $error_message = "Error storing SITIN record.";
         }
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
 
 <body class="flex min-h-screen bg-gray-500 font-mono ">
 
-    <!-- Sidebar -->
+  
     <div class="fixed inset-y-0 w-0 bg-white shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out bg-gray-600 text-white"
         id="sidebar">
         <div class="flex items-center justify-between px-4 mb-6 ">
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
         </ul>
     </div>
 
-    <!-- Main content -->
+    
     <div class="flex-1 px-8 py-6">
         <button id="menu-toggle" class="focus:outline-none">
             <svg class="h-6 w-6 text-white hover:text-gray-900" viewBox="0 0 24 24" fill="none"
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
             </svg>
         </button>
         <center><br><br>
-            <h2 class="text-6xl font-semibold mb-6 text-green-400">Admin Dashboard</h2><br><br><br><br><br><br><br><br><br><br>
+            <h2 class="text-6xl font-semibold mb-6 text-green-400">Admin Dashboard</h2><br><br><br><br>
             <form method="GET" action="">
                 <input type="text" name="search_id" placeholder="Enter ID number" style="width: 500px; height: 50px; border-radius: 10px;">
                 <button type="submit" class ="text-green-400 rounded-full text-2xl">Search</button>
@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
                 $result = $query->execute();
 
                 if ($row = $result->fetchArray()) {
-                    $remaining_sessions = 30; // Default value
+                    $remaining_sessions = 30; 
                     $session_query = $db->prepare("SELECT remaining_sessions FROM sitin_student WHERE id_number = :student_id");
                     $session_query->bindValue(':student_id', $row['id_number'], SQLITE3_TEXT);
                     $session_result = $session_query->execute();
@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
                                     <th class="px-4 py-2">EMAIL</th>
                                     <th class="px-4 py-2">PURPOSE</th>
                                     <th class="px-4 py-2">LABORATORY ROOM</th>
-                                    <th class="px-4 py-2">REMAINING SESSIONS (<?php echo $remaining_sessions; ?>)</th>
+                                    <th class="px-4 py-2">REMAINING SESSIONS </th>
                                     <th class="px-4 py-2">SITIN</th>
                                 </tr>
                             </thead>
