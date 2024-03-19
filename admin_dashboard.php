@@ -28,7 +28,7 @@
                 <a href="search.php">Search</a>
             </li>
             <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-                <a href="#">Delete</a>
+                <a href="delete_admin.php">Delete</a>
             </li>
             <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
                 <a href="#">SITIN</a>
@@ -64,7 +64,7 @@
     const sidebar = document.getElementById('sidebar');
 
     menuToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('w-64'); // Toggle sidebar width
+      sidebar.classList.toggle('w-64'); 
       if (sidebar.classList.contains('w-64')) {
         sidebar.classList.remove('w-0');
       } else {

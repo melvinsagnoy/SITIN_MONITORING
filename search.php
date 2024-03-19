@@ -49,9 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body class="flex min-h-screen bg-gray-500 font-mono ">
+<body class="flex min-h-screen bg-gray-500 font-mono">
 
-  
     <div class="fixed inset-y-0 w-0 bg-white shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out bg-gray-600 text-white"
         id="sidebar">
         <div class="flex items-center justify-between px-4 mb-6 ">
@@ -87,7 +86,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
         </ul>
     </div>
 
-    
     <div class="flex-1 px-8 py-6">
         <button id="menu-toggle" class="focus:outline-none">
             <svg class="h-6 w-6 text-white hover:text-gray-900" viewBox="0 0 24 24" fill="none"
@@ -131,65 +129,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
                         $remaining_sessions = $session_row['remaining_sessions'];
                     }
                     ?>
-                    <center>
-                        <table class="table-auto">
-                            <h3 class="text-green-500">RECORD FOUND</h3>
-                            <thead>
-                                <tr class="text-white">
-                                    <th class="px-4 py-2">ID NUMBER</th>
-                                    <th class="px-4 py-2">FIRST NAME</th>
-                                    <th class="px-4 py-2">LAST NAME</th>
-                                    <th class="px-4 py-2">EMAIL</th>
-                                    <th class="px-4 py-2">PURPOSE</th>
-                                    <th class="px-4 py-2">LABORATORY ROOM</th>
-                                    <th class="px-4 py-2">REMAINING SESSIONS </th>
-                                    <th class="px-4 py-2">SITIN</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="text-white ">
-                                    <td class="border px-4 py-2 "><?php echo $row['id_number']; ?></td>
-                                    <td class="border px-4 py-2 capitalize	"><?php echo $row['firstname']; ?></td>
-                                    <td class="border px-4 py-2 capitalize	"><?php echo $row['lastname']; ?></td>
-                                    <td class="border px-4 py-2"><?php echo $row['email']; ?></td>
-                                    <td class="border px-4 py-2 capitalize	">
-                                        <form method="POST" action="">
-                                            <input type="hidden" name="student_id" value="<?php echo $row['id_number']; ?>">
-                                            <input type="hidden" name="firstname" value="<?php echo $row['firstname']; ?>">
-                                            <input type="hidden" name="lastname" value="<?php echo $row['lastname']; ?>">
-                                            <input  class = "text-black"type="text" name="purpose" placeholder="Purpose" required>
-                                    </td>
-                                    <td class="border px-4 py-2 text-black capitalize	">
-                                        <select name="lab_option" required>
-                                            <option value="">Select Lab Option</option>
-                                            <option value="lab 524">Lab 524</option>
-                                            <option value="lab 525">Lab 525</option>
-                                            <option value="lab 526">Lab 526</option>
-                                            <option value="lab 528">Lab 528</option>
-                                            <option value="lab 542">Lab 542</option>
-                                        </select>
-                                    </td>
-                                    <td class="border px-4 py-2 text-black">
-                                   <center> <input type="text" name="default_session" value="<?php echo $remaining_sessions; ?>" readonly></center>
-                                    </td>
-                                    <td class="border px-4 py-2 bg-green-400">
-                                        <button type="submit" name="submit_sitin">SITIN</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </center>
+                    <div class="max-w-lg mx-auto bg-gray-600 rounded-xl shadow-md overflow-hidden md:max-w-base font-mono">
+                        <div class="md:flex">
+
+                            <div class="p-8 align-middle">
+                                <div class="uppercase tracking-wide text-3xl text-green-500 font-semibold"><?php echo $row['id_number']; ?></div>
+                                <div class="block mt-1 text-xl leading-tight font-medium text-white capitalize">Name: <?php echo $row['firstname'] . " " . $row['lastname']; ?></div>
+                                <p class="mt-2 text-white text-xl">Email: <?php echo $row['email']; ?></p>
+                                <form method="POST" action="">
+                                    <input type="hidden" name="student_id" value="<?php echo $row['id_number']; ?>">
+                                    <input type="hidden" name="firstname" value="<?php echo $row['firstname']; ?>">
+                                    <input type="hidden" name="lastname" value="<?php echo $row['lastname']; ?>">
+                                    <h3 class="text-white text-lg mt-4">PURPOSE</h3>
+                                    <input class=" mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50" type="text" name="purpose" placeholder="Purpose" required>
+                                    <h3 class="text-white text-lg mt-4">COMPUTER LABORATORY</h3>
+                                    <select name="lab_option" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50" required>
+                                        <option value="">Select Lab Option</option>
+                                        <option value="lab 524">Lab 524</option>
+                                        <option value="lab 525">Lab 525</option>
+                                        <option value="lab 526">Lab 526</option>
+                                        <option value="lab 528">Lab 528</option>
+                                        <option value="lab 542">Lab 542</option>
+                                    </select>
+                                    <h3 class="text-white text-lg mt-4">REMAINING SESSIONS</h3>
+                                    <input type="text" name="default_session" value="<?php echo $remaining_sessions; ?>" readonly class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50">
+                                    <button type="submit" name="submit_sitin" class="mt-4 block w-full bg-gray-900 hover:bg-gray-500 text-green-400 hover:text-red-400 uppercase tracking-wider font-semibold rounded-md py-2">SITIN</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <?php
                 } else {
                     echo "<center><p class='text-red-500'>No student found with the provided ID.</p></center> ";
-                    
                     echo "<script>alert('No student found with the provided ID.');</script>";
                 }
             }
             ?>
             <script>
-                // JavaScript to show success message prompt
+                
                 <?php if ($success_message): ?>
                 alert('<?php echo $success_message; ?>');
                 <?php endif; ?>

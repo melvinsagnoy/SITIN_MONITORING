@@ -87,10 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
                 <a href="search.php">Search</a>
             </li>
             <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-                <a href="#">Delete</a>
-            </li>
-            <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-                <a href="#">SITIN</a>
+                <a href="delete_admin.php">Delete</a>
             </li>
             <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
                 <a href="#">View Sitin Records</a>
@@ -181,6 +178,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
             sidebar.classList.remove('w-64');
             sidebar.classList.add('w-0');
         });
+
+        function deleteStudent(studentId) {
+        if (confirm("Are you sure you want to delete this student?")) {
+            fetch('delete_record.php', { // Send DELETE request to separate file
+                    method: 'DELETE',
+                    body: JSON.stringify({
+                        studentId: studentId
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(`Student with ID ${studentId} deleted successfully.`);
+                        // Optionally, you can remove the row from the table here if needed
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting the student record.');
+                });
+        }
+    }
     </script>
 
 </body>
