@@ -1,18 +1,13 @@
 {
     "version": 2,
-    "routes": [
-      {
-        "src": "/login.php",
-        "dest": "/login.php"
-      }
-    ],
     "rewrites": [
       {
         "source": "/(.*)",
-        "destination": "/$1"
+        "destination": "/login.php"
       }
     ],
     "env": {
       "DATABASE_URL": "sqlite:sitin.db"
     }
   }
+  
