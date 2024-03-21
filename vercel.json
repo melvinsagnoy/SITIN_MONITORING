@@ -1,9 +1,18 @@
 {
     "version": 2,
-    "builds": [
+    "routes": [
       {
-        "src": "login.php",
-        "use": "@vercel/php"
+        "src": "/login.php",
+        "dest": "/login.php"
       }
-    ]
+    ],
+    "rewrites": [
+      {
+        "source": "/(.*)",
+        "destination": "/$1"
+      }
+    ],
+    "env": {
+      "DATABASE_URL": "sqlite:sitin.db"
+    }
   }
