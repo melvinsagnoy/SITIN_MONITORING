@@ -141,14 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
                                     <input type="hidden" name="firstname" value="<?php echo $row['firstname']; ?>">
                                     <input type="hidden" name="lastname" value="<?php echo $row['lastname']; ?>">
                                     <h3 class="text-white text-lg mt-4">PURPOSE</h3>
-                                    <select name="purpose" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50" required>
-                                        <option value="">Select a Purpose</option>
-                                        <option value="java">Java</option>
-                                        <option value="python">Python</option>
-                                        <option value="c">C Programming</option>
-                                        <option value="android">Android</option>
-                                        <option value="elnet">Elnet</option>
-                                    </select>
+                                    <input class=" mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50" type="text" name="purpose" placeholder="Purpose" required>
                                     <h3 class="text-white text-lg mt-4">COMPUTER LABORATORY</h3>
                                     <select name="lab_option" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50" required>
                                         <option value="">Select Lab Option</option>
