@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
         </svg>
     </button>
     <center>
-        <h2 class="text-6xl font-semibold mb-6 text-green-400 font-mono">Admin Dashboard</h2>
+        <h2 class="text-6xl font-semibold mb-6 text-green-400 font-mono">Delete</h2>
     </center>
 
     <div class="container mx-auto px-4 sm:px-8 max-w-3xl">
@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
             <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                 <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
                     <table class="min-w-full leading-normal">
-                        <thead>
+                        <thead class = "bg-gray-500">
                             <tr>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold text-gray-100 uppercase tracking-wider">
@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody >
                             <?php
                             
                             $db = new SQLite3('sitin.db');

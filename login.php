@@ -64,8 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <h2 class="text-2xl font-semibold mb-6 text-white">Login As</h2>
       <form action="" method="post">
         <div class="mb-4">
-          <select name="user_type" class="border rounded-lg px-4 py-2 w-full">
-            <option value="student">Student</option>
+          <select name="user_type" class="border rounded-lg px-4 py-2 w-full bg-gray-200 hover:bg-gray-500 hover:text-white">
+            <option value="student" >Student</option>
             <option value="admin">Admin</option>
           </select>
         </div>
