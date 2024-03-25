@@ -6,39 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        @keyframes slideInFromLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-in-from-left {
+            animation: slideInFromLeft 0.5s ease-out;
+        }
+
+        .transition-colors {
+            transition-property: color;
+        }
+
+        .transition-opacity {
+            transition-property: opacity;
+        }
+
+        .transition-all {
+            transition-property: all;
+        }
+    </style>
 </head>
 
-<body class="flex min-h-screen bg-gray-500 font-mono">
+<body class="flex min-h-screen bg-gray-900 text-white">
 
-    <div class="fixed inset-y-0 w-0 bg-white shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out bg-gray-600 text-white" id="sidebar">
-        <div class="flex items-center justify-between px-4 mb-6 ">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/logo.png" alt="Logo" class="h-20 mr-4" />
-            <div>
-                <button id="close-menu" class="focus:outline-none">
-                    <svg class="h-6 w-6 text-white hover:text-gray-900" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <ul class="mt-6 bg-gray-600">
-            <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-                <a href="#">View Profiles</a>
-            </li>
-            <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-                <a href="#">SITIN</a>
-            </li>
-            <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-                <a href="#">Reservation</a>
-            </li>
-            <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-                <a href="#">Remaining Session</a>
-            </li>
-            <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-                <a href="login.php">Log Out</a>
-            </li>
-        </ul>
+<div class="fixed inset-y-0 w-0 bg-white shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out bg-gray-600 text-white slide-in-from-left" id="sidebar">
+    <div class="flex items-center justify-between px-4 mb-6 ">
+      <div class="flex items-center">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/logo.png" alt="Logo" class="h-20 mr-4" />
+      </div>
+      <div>
+        <button id="close-menu" class="focus:outline-none">
+          <svg class="h-6 w-6 text-white hover:text-gray-900" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+      </div>
     </div>
+    <ul class="mt-6 bg-gray-600">
+      <li>
+        <a href="profile.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+          View Profile
+        </a>
+      </li>
+      <li>
+        <a href="#" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+          View Remaining Session
+        </a>
+      </li>
+      <li>
+        <a href="#" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
+          SITIN
+        </a>
+      </li>
+      <li>
+        <a href="#" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+          Make Reservation
+        </a>
+      </li>
+      <li>
+        <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+          Log Out
+        </a>
+      </li>
+    </ul>
+  </div>
+
 
 
     <div class="flex-1 px-8 py-6">
@@ -52,7 +95,7 @@
         </center>
 
         <!-- Profile Form -->
-        <div class="max-w-xl mx-auto bg-gray-600 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div class="max-w-xl mx-auto bg-gray-700 shadow-md rounded px-8 pt-6 pb-8 mb-4 slide-in-from-left">
             <form method="POST" action="" class="mt-8">
                 <?php
                 // Connect to the SQLite database
@@ -90,17 +133,17 @@
                     <input type="hidden" name="id_number" value="<?= $student['id_number'] ?>">
                     <div class="mb-4 c\l">
                         <label class="block text-sm font-bold mb-2 text-white">First Name:</label>
-                        <input type="text" name="firstname" value="<?= $student['firstname'] ?>" class="border border-gray-400 p-2 w-full">
+                        <input type="text" name="firstname" value="<?= $student['firstname'] ?>" class="border border-gray-400 p-2 w-full bg-gray-600 text-white">
                     </div>
                     <div class="mb-4">
                         <label class="block text-white text-sm font-bold mb-2">Last Name:</label>
-                        <input type="text" name="lastname" value="<?= $student['lastname'] ?>" class="border border-gray-400 p-2 w-full">
+                        <input type="text" name="lastname" value="<?= $student['lastname'] ?>" class="border border-gray-400 p-2 w-full bg-gray-600 text-white">
                     </div>
                     <div class="mb-4">
                         <label class="block text-white text-sm font-bold mb-2">Email:</label>
-                        <input type="email" name="email" value="<?= $student['email'] ?>" class="border border-gray-400 p-2 w-full">
+                        <input type="email" name="email" value="<?= $student['email'] ?>" class="border border-gray-400 p-2 w-full bg-gray-600 text-white">
                     </div>
-                    <button type="submit" class="bg-gray-500 hover:bg-gray-700 text-green-400 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Profile</button>
+                    <button type="submit" class="bg-gray-700 hover:bg-gray-500 text-green-400 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Profile</button>
                 <?php
                 } else {
                     echo "<p>No student data found.</p>";

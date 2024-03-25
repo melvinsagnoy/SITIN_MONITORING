@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
     $student_id = $_POST['student_id'] ?? '';
     $purpose = $_POST['purpose'] ?? '';
     $lab_option = $_POST['lab_option'] ?? '';
-    
 
     if ($student_id && $purpose && $lab_option) {
         // MAG INSErT SITIN record with time-in and status ACTIVE
@@ -36,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
         $error_message = "Please fill out all required fields.";
     }
 }
+
 ?>
 
 
@@ -45,50 +45,79 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Search</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+        <style>
+            .transition-pop-out {
+            animation: pop-out 0.7s ease forwards;
+        }
+
+        @keyframes pop-out {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        </style>
 </head>
 
-<body class="flex min-h-screen bg-gray-500 font-mono">
+<body class="flex min-h-screen bg-gray-800 font-mono text-white">
 
-    <div class="fixed inset-y-0 w-0 bg-white shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out bg-gray-600 text-white"
+    <div class="fixed inset-y-0 left-0 w-64 bg-gray-700 shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out"
         id="sidebar">
-        <div class="flex items-center justify-between px-4 mb-6 ">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/logo.png" alt="Logo" class="h-20 mr-4" />
-            <div>
-                <button id="close-menu" class="focus:outline-none">
-                    <svg class="h-6 w-6 text-white hover:text-gray-900" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M6 18L18 6M6 6L18 18"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round"></path>
-                    </svg>
-                </button>
-            </div>
+        <div class="flex items-center justify-between px-4 mb-6">
+            <img src="img/logo.png" alt="Logo" class="h-20 mr-4">
+            <button id="close-menu" class="focus:outline-none">
+                <svg class="h-6 w-6 hover:text-white-200 " viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M6 18L18 6M6 6L18 18"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </button>
         </div>
-        <ul class="mt-6 bg-gray-600">
-            <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-                <a href="#">Search</a>
+        <ul class="space-y-2 px-4">
+            <li>
+                <a href="search.php"
+                    class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block active">
+                    Search
+                </a>
             </li>
-            <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-                <a href="#">Delete</a>
+            <li>
+                <a href="delete_admin.php"
+                    class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+                    Delete
+                </a>
             </li>
-            <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-                <a href="view_records.php">View Sitin Records</a>
+            <li>
+                <a href="view_records.php"
+                    class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+                    View Sitin Records
+                </a>
             </li>
-            <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-                <a href="#">Generate Reports</a>
+            <li>
+                <a href="generate_reports.php"
+                    class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+                    Generate Reports
+                </a>
             </li>
-            <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-                <a href="login.php">Log Out</a>
+            <li>
+                <a href="login.php"
+                    class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+                    Log Out
+                </a>
             </li>
         </ul>
     </div>
 
     <div class="flex-1 px-8 py-6">
         <button id="menu-toggle" class="focus:outline-none">
-            <svg class="h-6 w-6 text-white hover:text-gray-900" viewBox="0 0 24 24" fill="none"
+            <svg class="h-6 w-6 text-white hover:text-gray-200" viewBox="0 0 24 24" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M4 6H20M4 12H20M4 18H11Z"
@@ -96,13 +125,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
                     stroke-linejoin="round"></path>
             </svg>
         </button>
-        <center><br><br>
-            <h2 class="text-6xl font-semibold mb-6 text-green-400">Admin Dashboard</h2><br><br><br><br>
-            <form method="GET" action="">
-                <input type="text" name="search_id" placeholder="Enter ID number" style="width: 500px; height: 50px; border-radius: 10px;">
-                <button type="submit" class ="text-green-400 rounded-full text-2xl">Search</button>
-            </form>
+
+        <center>
+            <h2 class="text-6xl font-semibold mb-6 text-green-400">Sitin Records</h2>
         </center>
+        <div class="flex justify-center mb-8">
+            <form method="GET" action="" class="w-full max-w-xl">
+                <div class="flex items-center border-b border-b-2 border-green-500 py-2">
+                    <input name="search_id" class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Enter ID number">
+                    <button type="submit" class="flex-shrink-0 bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700 text-sm border-4 text-white py-1 px-2 rounded" type="button">
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
 
         <div class="mt-8">
             <?php
@@ -129,11 +165,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
                         $remaining_sessions = $session_row['remaining_sessions'];
                     }
                     ?>
-                    <div class="max-w-lg mx-auto bg-gray-600 rounded-xl shadow-md overflow-hidden md:max-w-base font-mono">
+                    <div class="max-w-lg mx-auto bg-gray-600 rounded-xl shadow-md overflow-hidden md:max-w-base font-mono transition-pop-out">
                         <div class="md:flex">
 
                             <div class="p-8 align-middle">
-                                <div class="uppercase tracking-wide text-3xl text-green-500 font-semibold"><?php echo $row['id_number']; ?></div>
+                                <div class="uppercase tracking-wide text-3xl text-green-500 font-semibold">ID NO: <?php echo $row['id_number']; ?></div>
                                 <div class="block mt-1 text-xl leading-tight font-medium text-white capitalize">Name: <?php echo $row['firstname'] . " " . $row['lastname']; ?></div>
                                 <p class="mt-2 text-white text-xl">Email: <?php echo $row['email']; ?></p>
                                 <form method="POST" action="">
@@ -141,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
                                     <input type="hidden" name="firstname" value="<?php echo $row['firstname']; ?>">
                                     <input type="hidden" name="lastname" value="<?php echo $row['lastname']; ?>">
                                     <h3 class="text-white text-lg mt-4">PURPOSE</h3>
-                                    <select name="purpose" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50" required>
+                                    <select name="purpose" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 text-black" required>
                                         <option value="">Select Lab Option</option>
                                         <option value="Python">Python</option>
                                         <option value="java">Java</option>
@@ -150,7 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
                                         <option value="android">Android</option>
                                     </select>
                                     <h3 class="text-white text-lg mt-4">COMPUTER LABORATORY</h3>
-                                    <select name="lab_option" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50" required>
+                                    <select name="lab_option" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 text-black" required>
                                         <option value="">Select Lab Option</option>
                                         <option value="lab 524">Lab 524</option>
                                         <option value="lab 525">Lab 525</option>
@@ -159,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
                                         <option value="lab 542">Lab 542</option>
                                     </select>
                                     <h3 class="text-white text-lg mt-4">REMAINING SESSIONS</h3>
-                                    <input type="text" name="default_session" value="<?php echo $remaining_sessions; ?>" readonly class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50">
+                                    <div class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 px-3 py-2  text-white"><?php echo $remaining_sessions; ?></div>
                                     <button type="submit" name="submit_sitin" class="mt-4 block w-full bg-gray-900 hover:bg-gray-500 text-green-400 hover:text-red-400 uppercase tracking-wider font-semibold rounded-md py-2">SITIN</button>
                                 </form>
                             </div>
@@ -180,27 +216,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
             </script>
         </div>
     </div>
-
     <script>
-        const menuToggle = document.getElementById('menu-toggle');
-        const closeMenuButton = document.getElementById('close-menu');
-        const sidebar = document.getElementById('sidebar');
+    document.addEventListener('DOMContentLoaded', function () {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.remove('w-64');
+      sidebar.classList.add('w-0');
+    });
 
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('w-64');
-            if (sidebar.classList.contains('w-64')) {
-                sidebar.classList.remove('w-0');
-            } else {
-                sidebar.classList.add('w-0');
-            }
-        });
+    const menuToggle = document.getElementById('menu-toggle');
+    const closeMenuButton = document.getElementById('close-menu');
+    const sidebar = document.getElementById('sidebar');
 
-        closeMenuButton.addEventListener('click', () => {
-            sidebar.classList.remove('w-64');
-            sidebar.classList.add('w-0');
-        });
-    </script>
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('w-64');
+      if (sidebar.classList.contains('w-64')) {
+        sidebar.classList.remove('w-0');
+      } else {
+        sidebar.classList.add('w-0');
+      }
+    });
 
+    closeMenuButton.addEventListener('click', () => {
+      sidebar.classList.remove('w-64');
+      sidebar.classList.add('w-0');
+    });
+  </script>
 </body>
 
 </html>
