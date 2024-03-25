@@ -47,8 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
     $error_message = "Student ID is required.";
   }
 
-  // Set a cookie to mark the first view
-  setcookie('first_view', 'visited', time() + 3600 * 24 * 365); // Expire in 1 year
+  
+  setcookie('first_view', 'visited', time() + 3600 * 24 * 365); 
 }
 ?>
 
@@ -76,15 +76,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
                 }
             }
             table {
-      font-size: 14px; /* Adjust font size */
-      max-width: 80%; /* Set maximum width */
-      width: 80%; /* Set width to 100% to fill the available space */
-      table-layout: fixed; /* Fix table layout to prevent it from expanding beyond the specified width */
+      font-size: 14px; 
+      max-width: 75%; 
+      width: 75%; 
+      table-layout: fixed; 
     }
 
     th,
     td {
-      padding: 8px; /* Adjust cell padding */
+      padding: 8px; 
     }
 
     </style>
