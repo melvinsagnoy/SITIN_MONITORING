@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
         </button>
 
         <center>
-            <h2 class="text-6xl font-semibold mb-6 text-green-400">Sitin Records</h2>
+            <h2 class="text-6xl font-semibold mb-6 text-green-400">Search Students</h2>
         </center>
         <div class="flex justify-center mb-8">
             <form method="GET" action="" class="w-full max-w-xl">
@@ -188,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
                                     <input type="hidden" name="lastname" value="<?php echo $row['lastname']; ?>">
                                     <h3 class="text-white text-lg mt-4">PURPOSE</h3>
                                     <select name="purpose" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 text-black" required>
-                                        <option value="">Select Lab Option</option>
+                                        <option value="">Select a Purpose</option>
                                         <option value="Python">Python</option>
                                         <option value="java">Java</option>
                                         <option value="Elnet ">Elnet</option>

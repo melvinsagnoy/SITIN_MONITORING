@@ -77,8 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
             }
             table {
       font-size: 14px; 
-      max-width: 75%; 
-      width: 75%; 
+      max-width: 65%; 
+      width: 65%; 
       table-layout: fixed; 
     }
 

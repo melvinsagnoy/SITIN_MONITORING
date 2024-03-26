@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
 
 <body class="bg-gray-800 font-mono text-white">
 
-    <!-- Sidebar -->
+
     <div class="fixed inset-y-0 w-64 bg-gray-700 shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out"
         id="sidebar">
         <div class="flex items-center justify-between px-4 mb-6">
@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
         </ul>
     </div>
 
-    <!-- Content -->
+
     <div class="flex-1 px-8 py-6">
         <button id="menu-toggle" class="focus:outline-none">
             <svg class="h-6 w-6 text-white hover:text-gray-200" viewBox="0 0 24 24" fill="none"
@@ -117,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
             <div class="py-8">
                 <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                     <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-                        <table class="min-w-full leading-normal bg-gray-700 text-white">
+                        <table class="min-w-full leading-normal bg-gray-200 text-white">
                             <thead>
                                 <tr>
                                     <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-900 text-left text-xs font-semibold uppercase tracking-wider">
