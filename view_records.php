@@ -10,7 +10,7 @@ $query = $db->prepare("
 ");
 $result = $query->execute();
 
-// Check if it's the first view
+
 $first_view = !isset($_COOKIE['first_view']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {

@@ -9,7 +9,7 @@
 </head>
 
 <body class="flex min-h-screen bg-gray-900 font-mono text-white">
-<div class="fixed inset-y-0 w-0 bg-white shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out bg-gray-600 text-white" id="sidebar">
+  <div class="fixed inset-y-0 w-64 bg-white shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out bg-gray-600 text-white" id="sidebar">
     <div class="flex items-center justify-between px-4 mb-6 ">
       <div class="flex items-center">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/logo.png" alt="Logo" class="h-20 mr-4" />
@@ -62,7 +62,44 @@
     </center>
 
     <div class="mt-8">
-      <center><br><br><br><br><br><br><img class = "flex " src = "img/dashboard.png"></center>
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-800">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+              ID Number
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+              Remaining Session
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-gray-900 divide-y divide-gray-200">
+          <?php
+     
+          $database = new SQLite3('sitin.db');
+
+     
+          $sql = "SELECT id_number, remaining_sessions FROM sitin_student"; 
+          $result = $database->query($sql);
+
+         
+          if ($result) {
+              // Output data of each row
+              while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                  echo "<tr class='text-gray-300'>";
+                  echo "<td class='px-6 py-4 whitespace-nowrap'>" . $row["id_number"] . "</td>";
+                  echo "<td class='px-6 py-4 whitespace-nowrap'>" . $row["remaining_sessions"] . "</td>";
+                  echo "</tr>";
+              }
+          } else {
+              echo "<tr><td colspan='2' class='px-6 py-4 whitespace-nowrap text-center'>No results found</td></tr>";
+          }
+
+          // Close connection
+          $database->close();
+          ?>
+        </tbody>
+      </table>
     </div>
   </div>
 
