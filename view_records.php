@@ -210,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
     sidebar.classList.add('w-0');
   });
 
-  // Function to show/hide the "Time Out" column
+
   function toggleTimeOutColumn() {
     const timeOutColumn = document.getElementById('time-out-column');
     timeOutColumn.style.display = (timeOutColumn.style.display === 'none') ? 'table-cell' : 'none';

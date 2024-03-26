@@ -12,17 +12,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
     $lab_option = $_POST['lab_option'] ?? '';
 
     if ($student_id && $purpose && $lab_option) {
-        // Check if the student already has an active sit-in status
+
         $existing_sitin_query = $db->prepare("SELECT status FROM sitin_student WHERE id_number = :student_id AND status = 'ACTIVE'");
         $existing_sitin_query->bindValue(':student_id', $student_id, SQLITE3_TEXT);
         $existing_sitin_result = $existing_sitin_query->execute();
         $existing_sitin_row = $existing_sitin_result->fetchArray();
 
         if ($existing_sitin_row) {
-            // If student already has an active sit-in, display an alert message
-            echo "<script>alert('You already have an active sit-in. You cannot sit in again.');</script>";
+
+            echo "<script>alert('You already have an active sit-in. You cannot sit in again :( :(');</script>";
         } else {
-            // Insert sit-in record if the student doesn't have an active sit-in
+            
             $current_time = date('Y-m-d H:i:s');
             $query = $db->prepare("INSERT INTO sitin_student (id_number, firstname, lastname, purpose, lab, time_in, status, remaining_sessions) VALUES (:id_number, :firstname, :lastname, :purpose, :lab, :time_in, 'ACTIVE', :remaining_sessions)");
             $query->bindValue(':id_number', $student_id, SQLITE3_TEXT);
@@ -36,13 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
             $result = $query->execute();
             
             if ($result) {
-                $success_message = "SITIN record successfully stored.";
+                $success_message = "SUCCESSFULLY SITIN";
             } else {
-                $error_message = "Error storing SITIN record.";
+                $error_message = "UNABLE TO SITIN";
             }
         }
     } else {
-        $error_message = "Please fill out all required fields.";
+        $error_message = "FILL OUT ALL THE FIELDS";
     }
 }
 ?>
