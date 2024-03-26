@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="flex min-h-screen bg-gray-900 text-white">
 
     <div class="w-1/2 bg-gray-800 p-8 text-5xl font-mono">
-        <br><br><br><br><br>
+        <br><br><br><br>
         <h1 class="text-green-400 font-mono hump-wave-animation">Unlocking Insights, Optimizing Resources:</h1>
         <h1 class="text-white hump-wave-animation">Introducing the CCS SITIN Monitoring System</h1>
     </div>

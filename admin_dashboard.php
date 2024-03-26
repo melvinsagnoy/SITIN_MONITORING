@@ -35,7 +35,7 @@
         </a>
       </li>
       <li>
-        <a href="#" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
+        <a href="view_records.php" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
           View Sitin Records
         </a>
       </li>

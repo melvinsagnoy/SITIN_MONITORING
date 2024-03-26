@@ -60,7 +60,7 @@
         </a>
       </li>
       <li>
-        <a href="#" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+        <a href="view_remaining.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
           View Remaining Session
         </a>
       </li>

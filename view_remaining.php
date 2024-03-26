@@ -63,41 +63,48 @@
 
     <div class="mt-8">
       <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-800">
-          <tr>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-              ID Number
-            </th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-              Remaining Session
-            </th>
-          </tr>
-        </thead>
+ 
         <tbody class="bg-gray-900 divide-y divide-gray-200">
-          <?php
-     
+        <?php
+          session_start(); // Start session
+
+          // Check if user is logged in
+          if (!isset($_SESSION['id_number'])) {
+              // Redirect to login page if not logged in
+              header("Location: login.php");
+              exit();
+          }
+
+          // Get the currently logged-in user's ID number from the session
+          $current_id_number = $_SESSION['id_number'];
+
           $database = new SQLite3('sitin.db');
 
-     
-          $sql = "SELECT id_number, remaining_sessions FROM sitin_student"; 
-          $result = $database->query($sql);
+          // Use a prepared statement to prevent SQL injection
+          $sql = "SELECT id_number, remaining_sessions FROM sitin_student WHERE id_number = :id_number";
+          $stmt = $database->prepare($sql);
+          $stmt->bindValue(':id_number', $current_id_number, SQLITE3_TEXT);
+          $result = $stmt->execute();
 
-         
           if ($result) {
-              // Output data of each row
-              while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-                  echo "<tr class='text-gray-300'>";
-                  echo "<td class='px-6 py-4 whitespace-nowrap'>" . $row["id_number"] . "</td>";
-                  echo "<td class='px-6 py-4 whitespace-nowrap'>" . $row["remaining_sessions"] . "</td>";
-                  echo "</tr>";
-              }
+              // Output data of the logged-in student
+              $row = $result->fetchArray(SQLITE3_ASSOC);
+              echo "<div class='max-w-sm mx-auto bg-gray-800 rounded overflow-hidden shadow-lg'>";
+              echo "<div class='px-6 py-4'>";
+              echo "<div class='font-bold text-xl mb-2 text-white'>Student Information</div>";
+              echo "<p class='text-gray-300'><strong>ID Number:</strong> " . $row["id_number"] . "</p>";
+              echo "<p class='text-gray-300'><strong>Remaining Sessions:</strong> " . $row["remaining_sessions"] . "</p>";
+              echo "</div>";
+              echo "</div>";
           } else {
-              echo "<tr><td colspan='2' class='px-6 py-4 whitespace-nowrap text-center'>No results found</td></tr>";
+              echo "<p class='text-center text-gray-300'>No results found</p>";
           }
 
           // Close connection
           $database->close();
           ?>
+
+
         </tbody>
       </table>
     </div>
