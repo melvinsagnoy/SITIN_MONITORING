@@ -101,34 +101,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_reports'])) 
         </center>
 
     <form method="POST" action="" class="mt-8">
-    <div class="flex flex-col space-y-4">
-        <label for="purpose" class="text-white">Purpose:</label>
-        <select id="purpose" name="purpose" class="rounded-lg bg-gray-600 text-white px-2 py-1 w-36">
+    <div class="flex flex-row space-x-4">
+        <label for="purpose" class="text-green-400">Purpose:</label>
+        <select id="purpose" name="purpose" class="rounded-lg bg-gray-600 text-white px-1 py-2 h-10">
             <option value="">Select Purpose</option>
             <?php foreach ($purposes as $purpose): ?>
                 <option value="<?php echo $purpose; ?>"><?php echo $purpose; ?></option>
             <?php endforeach; ?>
         </select>
 
-        <label for="lab" class="text-white">Lab:</label>
-        <select id="lab" name="lab" class="rounded-lg bg-gray-600 text-white px-2 py-1 w-36">
+        <label for="lab" class="text-green-400">Lab:</label>
+        <select id="lab" name="lab" class="rounded-lg bg-gray-600 text-white px-2 py-1 h-10">
             <option value="">Select Lab</option>
             <?php foreach ($labs as $lab): ?>
                 <option value="<?php echo $lab; ?>"><?php echo $lab; ?></option>
             <?php endforeach; ?>
         </select>
 
-        <label for="date" class="text-white">Select Date:</label>
-        <input type="date" id="date" name="date" class="rounded-lg bg-gray-600 text-white px-2 py-1 w-36">
+        <label for="date" class="text-green-400">Select Date:</label>
+        <input type="date" id="date" name="date" class="rounded-lg bg-gray-600 text-white px-2 py-1 h-10">
 
-        <button type="submit" name="generate_reports" class="border-solid bg-green-400 text-black text-base rounded-lg px-4 py-2 w-36">Generate Reports</button>
+        <button type="submit" name="generate_reports" class="border-solid bg-green-400 text-black text-base rounded-lg px-4 py-2 h-10">Generate Reports</button>
     </div>
 </form>
 
+
 <?php if (isset($result)): ?>
-    
-    <div class="overflow-x-auto">
-    <table id="reportTable" class="table-auto w-full shadow-md rounded-md overflow-x-auto transition-upper-to-lower mt-4">
+    <br>
+
+
+    <div id="reportTable" class="overflow-x-auto">
+        <p class="font-semibold text-white" >Date:</p><p><?php echo date('F j, Y', strtotime($selected_date)); ?></p>
+    <table class="table-auto w-full shadow-md rounded-md overflow-x-auto transition-upper-to-lower mt-4">
             <thead>
                 <tr class="text-xs font-medium text-left text-white bg-gray-700 uppercase">
                     <th class="px-4 py-2">ID Number</th>
@@ -169,25 +173,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_reports'])) 
         </button>
         <div id="exportOptions" class="absolute right-0 mt-2 w-36 bg-gray-600 rounded-md shadow-lg origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none" style="display: none;">
             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                <button id="exportToPdf" type="button" class="block px-4 py-2 text-sm text-white hover:bg-gray-700" role="menuitem">Export to PDF</button>
                 <button id="exportToExcel" type="button" class="block px-4 py-2 text-sm text-white hover:bg-gray-700" role="menuitem">Export to Excel</button>
             </div>
         </div>
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.2/xlsx.full.min.js"></script>
 <script>
     document.getElementById('exportButton').addEventListener('click', function() {
         document.getElementById('exportOptions').style.display = 'block';
     });
 
-    document.getElementById('exportToPdf').addEventListener('click', function() {
-        const doc = new jsPDF();
-        doc.autoTable({ html: '#reportTable' });
-        doc.save('reports.pdf');
-    });
+
 
     document.getElementById('exportToExcel').addEventListener('click', function() {
         const wb = XLSX.utils.table_to_book(document.getElementById('reportTable'));
