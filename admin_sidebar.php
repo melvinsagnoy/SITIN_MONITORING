@@ -16,13 +16,13 @@
         <a href="search.php">Search</a>
       </li>
       <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-        <a href="#">Delete</a>
+        <a href="delete.php">Delete</a>
       </li>
       <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-        <a href="#">View Sitin Record</a>
+        <a href="view_records.php">View Sitin Record</a>
       </li>
       <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
-        <a href="#">Reset Session</a>
+        <a href="generate_reports.php">Generate Reports</a>
       </li>
       <li class="px-4 py-2 rounded-md text-base font-medium text-green-400 hover:bg-gray-300 hover:text-gray-900">
         <a href="login.php">Log Out</a>

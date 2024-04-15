@@ -174,6 +174,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
                     if ($session_row) {
                         $remaining_sessions = $session_row['remaining_sessions'];
                     }
+
+                
                     ?>
                     <div class="max-w-lg mx-auto bg-gray-600 rounded-xl shadow-md overflow-hidden md:max-w-base font-mono transition-pop-out">
                         <div class="md:flex">
