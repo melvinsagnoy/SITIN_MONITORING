@@ -144,7 +144,7 @@
     const sidebar = document.getElementById('sidebar');
 
     menuToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('w-64'); // Toggle sidebar width
+      sidebar.classList.toggle('w-64'); 
       if (sidebar.classList.contains('w-64')) {
         sidebar.classList.remove('w-0');
       } else {
