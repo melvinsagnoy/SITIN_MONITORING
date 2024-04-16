@@ -1,7 +1,5 @@
 <?php
-
 $db = new SQLite3('sitin.db');
-
 
 $query = $db->query("SELECT DISTINCT purpose FROM sitin_student");
 $purposes = [];
@@ -9,33 +7,55 @@ while ($row = $query->fetchArray()) {
     $purposes[] = $row['purpose'];
 }
 
-
 $query = $db->query("SELECT DISTINCT lab FROM sitin_student");
 $labs = [];
 while ($row = $query->fetchArray()) {
     $labs[] = $row['lab'];
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_reports'])) {
-  
     $selected_purpose = $_POST['purpose'] ?? '';
     $selected_lab = $_POST['lab'] ?? '';
     $selected_date = $_POST['date'] ?? '';
+    $student_id = $_POST['student_id'] ?? '';
 
-    
-    $query = $db->prepare("
-        SELECT id_number, firstname, lastname, purpose, lab, time_in, time_out, status
-        FROM sitin_student
-        WHERE purpose = :purpose AND lab = :lab AND DATE(time_in) = :selected_date
-    ");
-    $query->bindValue(':purpose', $selected_purpose, SQLITE3_TEXT);
-    $query->bindValue(':lab', $selected_lab, SQLITE3_TEXT);
-    $query->bindValue(':selected_date', $selected_date, SQLITE3_TEXT);
+    $query_string = "SELECT id_number, firstname, lastname, purpose, lab, time_in, time_out, status
+                     FROM sitin_student
+                     WHERE 1";
+
+    // Add conditions based on selected filters
+    if (!empty($selected_purpose)) {
+        $query_string .= " AND purpose = :purpose";
+    }
+    if (!empty($selected_lab)) {
+        $query_string .= " AND lab = :lab";
+    }
+    if (!empty($selected_date)) {
+        $query_string .= " AND DATE(time_in) = :selected_date";
+    }
+    if (!empty($student_id)) {
+        $query_string .= " AND id_number = :student_id";
+    }
+
+    // Prepare and bind parameters
+    $query = $db->prepare($query_string);
+    if (!empty($selected_purpose)) {
+        $query->bindValue(':purpose', $selected_purpose, SQLITE3_TEXT);
+    }
+    if (!empty($selected_lab)) {
+        $query->bindValue(':lab', $selected_lab, SQLITE3_TEXT);
+    }
+    if (!empty($selected_date)) {
+        $query->bindValue(':selected_date', $selected_date, SQLITE3_TEXT);
+    }
+    if (!empty($student_id)) {
+        $query->bindValue(':student_id', $student_id, SQLITE3_TEXT);
+    }
 
     $result = $query->execute();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -118,6 +138,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_reports'])) 
             <?php endforeach; ?>
         </select>
 
+        <label for="student_id" class="text-green-400">Student ID:</label>
+<input type="text" id="student_id" name="student_id" class="rounded-lg bg-gray-600 text-white px-2 py-1 h-10" placeholder="Enter Student ID">
         <label for="date" class="text-green-400">Select Date:</label>
         <input type="date" id="date" name="date" class="rounded-lg bg-gray-600 text-white px-2 py-1 h-10">
 

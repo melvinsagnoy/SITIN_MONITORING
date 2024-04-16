@@ -1,53 +1,3 @@
-<?php
-$success_message = '';
-$error_message = '';
-
-$db = new SQLite3('sitin.db');
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_reports'])) {
-  $start_date = $_POST['start_date'] ?? '';
-  $end_date = $_POST['end_date'] ?? '';
-
-  
-  $query = $db->prepare("
-    SELECT s.id_number, st.firstname, st.lastname, s.purpose, s.lab, s.time_in, s.time_out, s.status
-    FROM sitin_student s
-    JOIN student st ON s.id_number = st.id_number
-    WHERE s.time_in BETWEEN :start_date AND :end_date
-  ");
-  $query->bindValue(':start_date', $start_date, SQLITE3_TEXT);
-  $query->bindValue(':end_date', $end_date, SQLITE3_TEXT);
-
-  $result = $query->execute();
-}
-
-
-else {
-  $query = $db->prepare("
-    SELECT s.id_number, st.firstname, st.lastname, s.purpose, s.lab, s.time_in, s.time_out, s.status
-    FROM sitin_student s
-    JOIN student st ON s.id_number = st.id_number
-  ");
-  $result = $query->execute();
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
-  
-  $student_id = $_POST['student_id'] ?? '';
-
-  $query = $db->prepare("
-      UPDATE sitin_student 
-      SET time_out = CURRENT_TIMESTAMP, status = 'INACTIVE' 
-      WHERE id_number = :student_id
-  ");
-  $query->bindValue(':student_id', $student_id, SQLITE3_TEXT);
-  $query->execute();
-
-  $success_message = 'Student logged out successfully.';
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,10 +7,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
   <title>Student Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Center the table */
+    #reportTable {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    /* Adjust table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color:black;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+  </style>
 </head>
 
 <body class="flex min-h-screen bg-gray-900 font-mono text-white">
-<div class="fixed inset-y-0 w-0 bg-white shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out bg-gray-600 text-white" id="sidebar">
+  <div class="fixed inset-y-0 w-0 bg-white shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out bg-gray-600 text-white" id="sidebar">
     <div class="flex items-center justify-between px-4 mb-6 ">
       <div class="flex items-center">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/logo.png" alt="Logo" class="h-20 mr-4" />
@@ -71,28 +51,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
             <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
           </svg>
         </button>
+    
       </div>
     </div>
     <ul class="mt-6 bg-gray-600">
       <li>
         <a href="profile.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          <i class = "fas fa-user"></i> View Profile
+          <i class="fas fa-user"></i> View Profile
         </a>
       </li>
       <li>
         <a href="view_remaining.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          <i class = "fas fa-clock"></i> View Remaining Session
+          <i class="fas fa-clock"></i> View Remaining Session
         </a>
       </li>
       <li>
         <a href="history.php" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
-         <i class = "fas fa-history"></i> Sitin Login History
+          <i class="fas fa-history"></i> Sitin Login History
         </a>
       </li>
       <br>
       <li>
         <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          <i class= "fas fa-sign-out-alt"></i> Log Out
+          <i class="fas fa-sign-out-alt"></i> Log Out
         </a>
       </li>
     </ul>
@@ -105,51 +86,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
       </svg>
     </button>
 
-  </div>
 
-  <div class="mt-8">
-  <?php if ($result && $result->numColumns() > 0): ?>
-    <center>
-      <table class="table-auto w-full shadow-md rounded-md overflow-x-auto transition-upper-to-lower">
-        <thead>
+  <div class="h-full">
+  <center><h1 class="text-green-400 text-xl">SITIN HISTORY</h1></center>
+    <div id="reportTable">
+    
+      <table>
+        <thead class="">
           <tr class="text-xs font-medium text-left text-white bg-gray-700 uppercase">
-            <th class="px-4 py-2">ID NUMBER</th>
-            <th class="px-4 py-2">FIRST NAME</th>
-            <th class="px-4 py-2">LAST NAME</th>
-            <th class="px-4 py-2">PURPOSE</th>
-            <th class="px-4 py-2">LAB</th>
-            <th class="px-4 py-2">TIME IN</th>
-            <th class="px-4 py-2">TIME OUT</th>
-            <th class="px-4 py-2">STATUS</th>
-            <th class="px-4 py-2">ACTION</th>
+            <th class="px-4 py-2">Date</th>
+            <th class="px-4 py-2">Time In</th>
+            <th class="px-4 py-2">Time Out</th>
+            <th class="px-4 py-2">Lab</th>
           </tr>
         </thead>
         <tbody>
-          <?php while ($row = $result->fetchArray(SQLITE3_ASSOC)): ?>
-            <tr class="border-b border-gray-700 text-sm text-gray-400 hover:bg-gray-800 hover:text-white">
-              <td class="px-4 py-2"><?php echo $row['id_number']; ?></td>
-              <td class="px-4 py-2 capitalize"><?php echo $row['firstname']; ?></td>
-              <td class="px-4 py-2 capitalize"><?php echo $row['lastname']; ?></td>
-              <td class="px-4 py-2 capitalize"><?php echo $row['purpose']; ?></td>
-              <td class="px-4 py-2 capitalize"><?php echo $row['lab']; ?></td>
-              <td class="px-4 py-2"><?php echo $row['time_in']; ?></td>
-              <td id="time-out-column" class="px-4 py-2"><?php echo $row['time_out']; ?></td>
-              <td class="px-4 py-2 text-green-400"><?php echo $row['status']; ?></td>
-              <td class="px-4 py-2">
-                <form method="POST" action="">
-                  <input type="hidden" name="student_id" value="<?php echo $row['id_number']; ?>">
-                  <button type="submit" name="logout" class="text-red-500 hover:text-red-700 px-2 py-1 rounded-md focus:outline-none">Logout</button>
-                </form>
-              </td>
-            </tr>
-          <?php endwhile; ?>
+          <?php
+          $db = new SQLite3('sitin.db');
+
+          session_start();
+          if (!isset($_SESSION['id_number'])) {
+
+            header("Location: login.php");
+            exit;
+          }
+
+          $current_user_id = $_SESSION['id_number'];
+
+
+          $query = $db->prepare("SELECT time_in, time_out, lab FROM sitin_student WHERE id_number = :user_id ORDER BY time_in DESC");
+          $query->bindValue(':user_id', $current_user_id, SQLITE3_TEXT);
+          $result = $query->execute();
+
+          while ($row = $result->fetchArray()) {
+
+            $formatted_date = date('F j, Y', strtotime($row['time_in']));
+            $formatted_time_in = date('h:i A', strtotime($row['time_in']));
+            $formatted_time_out = date('h:i A', strtotime($row['time_out']));
+
+
+            echo "<tr class='border-b border-gray-700 text-sm text-gray-400 hover:bg-gray-800 hover:text-white'>";
+            echo "<td class='px-4 py-2'>$formatted_date</td>";
+            echo "<td class='px-4 py-2'>$formatted_time_in</td>";
+            echo "<td class='px-4 py-2'>$formatted_time_out</td>";
+            echo "<td class='px-4 py-2'>" . $row['lab'] . "</td>";
+            echo "</tr>";
+          }
+          ?>
         </tbody>
       </table>
-    </center>
-  <?php else: ?>
-    <p class="text-red-500 text-center">No sitin records found.</p>
-  <?php endif; ?>
-</div>
+    </div>
+  </div>
+
 
   <script>
     const menuToggle = document.getElementById('menu-toggle');
