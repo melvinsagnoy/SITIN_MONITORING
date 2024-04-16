@@ -1,29 +1,29 @@
 <?php
-// Database connection
+
 $db = new SQLite3('sitin.db');
 
-// Fetch unique purposes from the database
+
 $query = $db->query("SELECT DISTINCT purpose FROM sitin_student");
 $purposes = [];
 while ($row = $query->fetchArray()) {
     $purposes[] = $row['purpose'];
 }
 
-// Fetch unique labs from the database
+
 $query = $db->query("SELECT DISTINCT lab FROM sitin_student");
 $labs = [];
 while ($row = $query->fetchArray()) {
     $labs[] = $row['lab'];
 }
 
-// Handle form submission
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_reports'])) {
-    // Retrieve form data
+  
     $selected_purpose = $_POST['purpose'] ?? '';
     $selected_lab = $_POST['lab'] ?? '';
     $selected_date = $_POST['date'] ?? '';
 
-    // Generate reports based on selected filters
+    
     $query = $db->prepare("
         SELECT id_number, firstname, lastname, purpose, lab, time_in, time_out, status
         FROM sitin_student
@@ -43,14 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_reports'])) 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate Reports</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="flex min-h-screen bg-gray-800 font-mono text-white">
 
-    <!-- Sidebar -->
+ 
     <div id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-gray-700 shadow pt-5 h-screen overflow-auto ">
-        <!-- Sidebar content -->
-        <!-- Logo and close button -->
+        
         <div class="flex items-center justify-between px-4 mb-6">
             <img src="img/logo.png" alt="Logo" class="h-20 mr-4">
             <button id="close-menu" class="focus:outline-none">
@@ -59,33 +59,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_reports'])) 
                 </svg>
             </button>
         </div>
-        <!-- Sidebar links -->
+     
         <ul class="space-y-2 px-4">
-            <li>
-                <a href="search.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-                    Search
-                </a>
-            </li>
-            <li>
-                <a href="delete_admin.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-                    Delete
-                </a>
-            </li>
-            <li>
-                <a href="#" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
-                    Generate Reports
-                </a>
-            </li>
-            <li>
-                <a href="view_sitin_records.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-                    View Sitin Records
-                </a>
-            </li>
-            <li>
-                <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-                    Log Out
-                </a>
-            </li>
+        <li>
+        <a href="search.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block"><i class="fas fa-search"></i> Search
+        </a>
+      </li>
+      <li>
+        <a href="delete_admin.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+        <i class = "fas fa-trash"></i>  Delete
+        </a>
+      </li>
+      <li>
+        <a href="view_records.php" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
+          <i class = "fas fa-eye"></i> View Sitin Records
+        </a>
+      </li>
+      <li>
+        <a href="generate_reports.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+          <i class = "fas fa-file"></i> Generate Reports
+        </a>
+      </li>
+      <br>
+      <li>
+        <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+        <i class = "fas fa-sign-out-alt"></i> Log Out
+        </a>
+      </li>
         </ul>
     </div>
 

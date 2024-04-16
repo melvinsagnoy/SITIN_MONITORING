@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
@@ -25,28 +26,28 @@
     </div>
     <ul class="mt-6 bg-gray-600">
       <li>
-        <a href="search.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          Search
+        <a href="search.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block"><i class="fas fa-search"></i> Search
         </a>
       </li>
       <li>
         <a href="delete_admin.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          Delete
+        <i class = "fas fa-trash"></i>  Delete
         </a>
       </li>
       <li>
         <a href="view_records.php" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
-          View Sitin Records
+          <i class = "fas fa-eye"></i> View Sitin Records
         </a>
       </li>
       <li>
         <a href="generate_reports.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          Generate Reports
+          <i class = "fas fa-file"></i> Generate Reports
         </a>
       </li>
+      <br>
       <li>
         <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          Log Out
+        <i class = "fas fa-sign-out-alt"></i> Log Out
         </a>
       </li>
     </ul>

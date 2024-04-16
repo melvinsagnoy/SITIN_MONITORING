@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 
 <body class="flex min-h-screen bg-gray-900 font-mono text-white">
@@ -25,27 +26,23 @@
     <ul class="mt-6 bg-gray-600">
       <li>
         <a href="profile.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          View Profile
+          <i class = "fas fa-user"></i> View Profile
         </a>
       </li>
       <li>
         <a href="view_remaining.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          View Remaining Session
+          <i class = "fas fa-clock"></i> View Remaining Session
         </a>
       </li>
       <li>
-        <a href="#" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
-          SITIN
+        <a href="history.php" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
+         <i class = "fas fa-history"></i> Sitin Login History
         </a>
       </li>
-      <li>
-        <a href="#" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          Make Reservation
-        </a>
-      </li>
+      <br>
       <li>
         <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          Log Out
+          <i class= "fas fa-sign-out-alt"></i> Log Out
         </a>
       </li>
     </ul>
