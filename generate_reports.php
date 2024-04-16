@@ -72,7 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_reports'])) 
     <div id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-gray-700 shadow pt-5 h-screen overflow-auto ">
         
         <div class="flex items-center justify-between px-4 mb-6">
-            <img src="img/logo.png" alt="Logo" class="h-20 mr-4">
+        <a href="admin_dashboard.php">
+        <img src="img/logo.png" alt="Logo" class="h-20 mr-4" />
+    </a>
             <button id="close-menu" class="focus:outline-none">
                 <svg class="h-6 w-6 hover:text-white-200 " viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>

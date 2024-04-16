@@ -51,10 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
 <body class="bg-gray-800 font-mono text-white">
 
 
-    <div class="fixed inset-y-0 w-64 bg-gray-700 shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out"
-        id="sidebar">
+<div class="fixed inset-y-0 w-64 bg-white shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out bg-gray-600 text-white" id="sidebar">
+     
         <div class="flex items-center justify-between px-4 mb-6">
-            <img src="img/logo.png" alt="Logo" class="h-20 mr-4">
+        <a href="admin_dashboard.php">
+        <img src="img/logo.png" alt="Logo" class="h-20 mr-4" />
+    </a>
             <button id="close-menu" class="focus:outline-none">
                 <svg class="h-6 w-6 hover:text-white-200" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -155,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
         </div>
     </div>
 
-<script>
+    <script>
     document.addEventListener('DOMContentLoaded', function () {
       const sidebar = document.getElementById('sidebar');
       sidebar.classList.remove('w-64');
@@ -179,6 +181,7 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
       sidebar.classList.remove('w-64');
       sidebar.classList.add('w-0');
     });
+  
     function deleteStudent(studentId) {
     if (confirm("Are you sure you want to delete this student?")) {
         fetch('<?php echo $_SERVER["PHP_SELF"]; ?>', { 
