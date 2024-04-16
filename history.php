@@ -85,8 +85,7 @@
         <path d="M4 6H20M4 12H20M4 18H11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
       </svg>
     </button>
-
-
+    <!--d-->
   <div class="h-full">
   <center><h1 class="text-green-400 text-xl">SITIN HISTORY</h1></center>
     <div id="reportTable">
