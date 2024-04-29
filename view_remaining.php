@@ -63,28 +63,26 @@
  
         <tbody class="bg-gray-900 divide-y divide-gray-200">
         <?php
-          session_start(); // Start session
+          session_start(); 
 
-          // Check if user is logged in
           if (!isset($_SESSION['id_number'])) {
-              // Redirect to login page if not logged in
+             
               header("Location: login.php");
               exit();
           }
 
-          // Get the currently logged-in user's ID number from the session
+        
           $current_id_number = $_SESSION['id_number'];
 
           $database = new SQLite3('sitin.db');
 
-          // Use a prepared statement to prevent SQL injection
           $sql = "SELECT id_number, remaining_sessions FROM sitin_student WHERE id_number = :id_number";
           $stmt = $database->prepare($sql);
           $stmt->bindValue(':id_number', $current_id_number, SQLITE3_TEXT);
           $result = $stmt->execute();
 
           if ($result) {
-              // Output data of the logged-in student
+             
               $row = $result->fetchArray(SQLITE3_ASSOC);
               echo "<div class='max-w-sm mx-auto bg-gray-800 rounded overflow-hidden shadow-lg'>";
               echo "<div class='px-6 py-4'>";
@@ -97,7 +95,7 @@
               echo "<p class='text-center text-gray-300'>No results found</p>";
           }
 
-          // Close connection
+          
           $database->close();
           ?>
 
@@ -113,7 +111,7 @@
     const sidebar = document.getElementById('sidebar');
 
     menuToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('w-64'); // Toggle sidebar width
+      sidebar.classList.toggle('w-64'); 
       if (sidebar.classList.contains('w-64')) {
         sidebar.classList.remove('w-0');
       } else {
