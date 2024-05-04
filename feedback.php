@@ -1,85 +1,34 @@
 <?php
-session_start(); // Start session if not already started
+// Start session
+session_start();
 
-// Check if the student is logged in
-if (!isset($_SESSION['id_number'])) {
-    // Redirect to login page or handle accordingly
-    header("Location: login.php");
-    exit();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Assuming you have a database connection
+    $db = new SQLite3('sitin.db');
+
+    $feedback = $_POST['feedback'] ?? '';
+    
+    // Get student ID from session
+  
+
+    // Insert feedback into the database along with the student ID
+    $query = $db->prepare("INSERT INTO feedback (feedback_content, created_at) VALUES (:content, CURRENT_TIMESTAMP)");
+    $query->bindValue(':content', $feedback, SQLITE3_TEXT);
+   
+    $query->execute();
+
+    // Optionally, you can display a success message or perform other actions
 }
-
-// Connect to the SQLite database
-$db = new SQLite3('sitin.db');
-
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
-    $id_number = $_POST['id_number'];
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    $email = $_POST['email'];
-
-    // Prepare and execute update query
-    $stmt = $db->prepare("UPDATE student SET firstname = :firstname, lastname = :lastname, email = :email WHERE id_number = :id_number");
-    $stmt->bindValue(':id_number', $id_number, SQLITE3_TEXT);
-    $stmt->bindValue(':firstname', $firstname, SQLITE3_TEXT);
-    $stmt->bindValue(':lastname', $lastname, SQLITE3_TEXT);
-    $stmt->bindValue(':email', $email, SQLITE3_TEXT);
-    $stmt->execute();
-
-    // Redirect to profile page after updating
-    header("Location: profile.php");
-    exit();
-}
-
-// Fetch student data based on the current session
-$stmt = $db->prepare("SELECT id_number, firstname, lastname, email FROM student WHERE id_number = :id_number");
-$stmt->bindValue(':id_number', $_SESSION['id_number'], SQLITE3_TEXT);
-$result = $stmt->execute();
-$student = $result->fetchArray(SQLITE3_ASSOC);
-
-// Close the database connection
-$db->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <style>
-        @keyframes slideInFromLeft {
-            0% {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
 
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .slide-in-from-left {
-            animation: slideInFromLeft 0.5s ease-out;
-        }
-
-        .transition-colors {
-            transition-property: color;
-        }
-
-        .transition-opacity {
-            transition-property: opacity;
-        }
-
-        .transition-all {
-            transition-property: all;
-        }
-    </style>
 </head>
 
 <body class="flex min-h-screen bg-gray-900 text-white">
@@ -129,33 +78,35 @@ $db->close();
                 <path d="M4 6H20M4 12H20M4 18H11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
         </button>
-        <center>
-            <h2 class="text-6xl font-semibold mb-6 text-green-400">Student Profile</h2>
-        </center>
 
-        <!-- Profile Form -->
-        <div class="max-w-xl mx-auto bg-gray-700 shadow-md rounded px-8 pt-6 pb-8 mb-4 slide-in-from-left">
-            
-            <form method="POST" action="" class="mt-8">
-                <input type="hidden" name="id_number" value="<?= $student['id_number'] ?>">
-                <div class="mb-4">
-                    <label class="block text-sm font-bold mb-2 text-white">First Name:</label>
-                    <input type="text" name="firstname" value="<?= $student['firstname'] ?>" class="border border-gray-400 p-2 w-full bg-gray-600 text-white">
-                </div>
-                <div class="mb-4">
-                    <label class="block text-white text-sm font-bold mb-2">Last Name:</label>
-                    <input type="text" name="lastname" value="<?= $student['lastname'] ?>" class="border border-gray-400 p-2 w-full bg-gray-600 text-white">
-                </div>
-                <div class="mb-4">
-                    <label class="block text-white text-sm font-bold mb-2">Email:</label>
-                    <input type="email" name="email" value="<?= $student['email'] ?>" class="border border-gray-400 p-2 w-full bg-gray-600 text-white">
-                </div>
-                <button type="submit" class="bg-gray-700 hover:bg-gray-500 text-green-400 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Profile</button>
+<body>
+<div class="flex-1 px-8 py-6">
+        
+
+<div class="flex-1 px-8 py-6">
+
+
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-bold mb-4">Submit Feedback</h1>
+            <form action="" method="POST" class="max-w-md">
+                <label for="feedback" class="block text-gray-300 mb-2">Feedback:</label>
+                <textarea id="feedback" name="feedback" rows="4" class="bg-gray-800 text-gray-300 rounded-md w-full px-4 py-2 mb-4" placeholder="Enter your feedback here..."></textarea>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md">Submit Feedback</button>
             </form>
+            <?php
+            // Check if the form has been submitted
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // Check if feedback is not empty
+                if (!empty($_POST['feedback'])) {
+                    // Display a message after feedback submission
+                    echo "<p class='text-green-500 mt-4'>Feedback submitted successfully.</p>";
+                }
+            }
+            ?>
         </div>
     </div>
-
-    <script>
+</body>
+<script>
         const menuToggle = document.getElementById('menu-toggle');
         const closeMenuButton = document.getElementById('close-menu');
         const sidebar = document.getElementById('sidebar');
@@ -174,7 +125,4 @@ $db->close();
             sidebar.classList.add('w-0');
         });
     </script>
-
-</body>
-
 </html>

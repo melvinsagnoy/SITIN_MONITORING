@@ -34,14 +34,24 @@ else {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
   
-  $student_id = $_POST['student_id'] ?? '';
+  $student_id = $_POST['student_id']?? ''; // Assuming this is the id or id_number
 
+  // Update the sitin_student table to mark the student as logged out
   $query = $db->prepare("
       UPDATE sitin_student 
       SET time_out = CURRENT_TIMESTAMP, status = 'INACTIVE' 
       WHERE id_number = :student_id
   ");
-  $query->bindValue(':student_id', $student_id, SQLITE3_TEXT);
+  $query->bindValue(':student_id', $student_id, SQLITE3_INTEGER); // Use SQLITE3_INTEGER if id is an integer
+  $query->execute();
+
+  // Deduct 1 from the session_count in the sitin_records table
+  $query = $db->prepare("
+      UPDATE sitin_student
+      SET remaining_sessions = remaining_sessions - 1 
+      WHERE id_number = :student_id
+  ");
+  $query->bindValue(':student_id', $student_id, SQLITE3_INTEGER); // Use SQLITE3_INTEGER if id is an integer
   $query->execute();
 
   $success_message = 'Student logged out successfully.';
@@ -184,10 +194,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
               <td id="time-out-column" class="px-4 py-2"><?php echo $row['time_out']; ?></td>
               <td class="px-4 py-2 text-green-400"><?php echo $row['status']; ?></td>
               <td class="px-4 py-2">
-                <form method="POST" action="">
-                  <input type="hidden" name="student_id" value="<?php echo $row['id_number']; ?>">
+              <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+  `                <input type="hidden" name="student_id" value="<?php echo $row['id_number']; ?>">
                   <button type="submit" name="logout" class="text-red-500 hover:text-red-700 px-2 py-1 rounded-md focus:outline-none">Logout</button>
-                </form>
+              </form>`
               </td>
             </tr>
           <?php endwhile; ?>

@@ -86,6 +86,16 @@
             <i class="fas fa-file"></i> Generate Reports
           </a>
         </li>
+        <li>
+          <a href="post_a.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+            <i class="fas fa-file"></i> Post Announcements
+          </a>
+        </li>
+        <li>
+          <a href="view_feedback.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+            <i class="fas fa-file"></i> Feedbacks and Reporting
+          </a>
+        </li>
         <br>
         <li>
           <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">

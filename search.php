@@ -4,6 +4,13 @@ $remaining_sessions = 30;
 $success_message = '';
 $error_message = '';
 
+try {
+    $db = new SQLite3('sitin.db');
+} catch (Exception $e) {
+    error_log("SQLite3 connection failed: ". $e->getMessage());
+    die("Database connection failed.");
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
     $db = new SQLite3('sitin.db');
     
@@ -45,8 +52,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
         $error_message = "FILL OUT ALL THE FIELDS";
     }
 }
-?>
 
+
+function resetSessionCount($student_id) {
+    global $db; // Declare $db as global inside the function
+
+    // Update the remaining session count for the student to 30
+    $update_query = $db->prepare("UPDATE sitin_student SET remaining_sessions = 30 WHERE id_number = :id_number");
+    $update_query->bindValue(':id_number', $student_id, SQLITE3_TEXT);
+    $update_result = $update_query->execute();
+
+    // Check if the update was successful
+    if ($update_result) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// When calling resetSessionCount, you no longer need to pass $db as a parameter
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_session'])) {
+    $student_id = $_POST['id_number']?? '';
+    
+    // Check if the student ID is provided
+    if ($student_id) {
+        // Call the function to reset the session count
+        if (resetSessionCount($student_id)) {
+            $success_message = "Session reset successfully!";
+        } else {
+            $error_message = "Failed to reset session count";
+        }
+    } else {
+        $error_message = "Student ID is required";
+    }
+}
+?>
 
 
 <!DOCTYPE html>
@@ -207,6 +247,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
                                     <h3 class="text-white text-lg mt-4">REMAINING SESSIONS</h3>
                                     <div class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 px-3 py-2  text-white"><?php echo $remaining_sessions; ?></div>
                                     <button type="submit" name="submit_sitin" class="mt-4 block w-full bg-gray-900 hover:bg-gray-500 text-green-400 hover:text-red-400 uppercase tracking-wider font-semibold rounded-md py-2">SITIN</button>
+                                    
+                                </form>
+                                <!-- Form for resetting session count -->
+                                <form method="POST" action="">
+                                    <input type="hidden" name="id_number" value="<?php echo $row['id_number']; ?>">
+                                    <button type="submit" name="reset_session" class="mt-4 block w-full bg-gray-900 hover:bg-gray-500 text-red-400 hover:text-white uppercase tracking-wider font-semibold rounded-md py-2">Reset Session</button>
                                 </form>
                             </div>
                         </div>
@@ -250,6 +296,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_sitin'])) {
       sidebar.classList.remove('w-64');
       sidebar.classList.add('w-0');
     });
+
+    
   </script>
 </body>
 

@@ -39,12 +39,18 @@
          <i class = "fas fa-history"></i> Sitin Login History
         </a>
       </li>
+      <li>
+        <a href="feedback.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+          <i class= "fas fa-thumbs-up"></i> Feedback and Reporting
+        </a>
+      </li>
       <br>
       <li>
         <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
           <i class= "fas fa-sign-out-alt"></i> Log Out
         </a>
       </li>
+      
     </ul>
   </div>
 
