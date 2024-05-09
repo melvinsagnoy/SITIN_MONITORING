@@ -69,47 +69,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['generate_reports'])) 
 <body class="flex min-h-screen bg-gray-800 font-mono text-white">
 
  
-    <div id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-gray-700 shadow pt-5 h-screen overflow-auto ">
-        
-        <div class="flex items-center justify-between px-4 mb-6">
-        <a href="admin_dashboard.php">
-        <img src="img/logo.png" alt="Logo" class="h-20 mr-4" />
-    </a>
-            <button id="close-menu" class="focus:outline-none">
-                <svg class="h-6 w-6 hover:text-white-200 " viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-            </button>
-        </div>
+<div class="fixed inset-y-0 w-64 bg-white shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out bg-gray-600 text-white" id="sidebar">
      
-        <ul class="space-y-2 px-4">
-        <li>
-        <a href="search.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block"><i class="fas fa-search"></i> Search
-        </a>
-      </li>
-      <li>
-        <a href="delete_admin.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-        <i class = "fas fa-trash"></i>  Delete
-        </a>
-      </li>
-      <li>
-        <a href="view_records.php" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
-          <i class = "fas fa-eye"></i> View Sitin Records
-        </a>
-      </li>
-      <li>
-        <a href="generate_reports.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          <i class = "fas fa-file"></i> Generate Reports
-        </a>
-      </li>
-      <br>
-      <li>
-        <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-        <i class = "fas fa-sign-out-alt"></i> Log Out
-        </a>
-      </li>
-        </ul>
-    </div>
+     <div class="flex items-center justify-between px-4 mb-6">
+     <a href="admin_dashboard.php">
+     <img src="img/logo.png" alt="Logo" class="h-20 mr-4" />
+ </a>
+         <button id="close-menu" class="focus:outline-none">
+             <svg class="h-6 w-6 hover:text-white-200" viewBox="0 0 24 24" fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+                 <path
+                     d="M6 18L18 6M6 6L18 18"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                     stroke-linejoin="round"></path>
+             </svg>
+         </button>
+     </div>
+     <ul class="mt-6 bg-gray-600">
+     <li>
+       <a href="search.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block"><i class="fas fa-search"></i> Search
+       </a>
+     </li>
+     <li>
+       <a href="delete_admin.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+         <i class="fas fa-trash"></i> Delete
+       </a>
+     </li>
+     <li>
+       <a href="view_records.php" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
+         <i class="fas fa-eye"></i> View Sitin Records
+       </a>
+     </li>
+     <li>
+       <a href="generate_reports.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+         <i class="fas fa-file"></i> Generate Reports
+       </a>
+     </li>
+     <li>
+       <a href="post_a.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+       <i class="fa fa-bullhorn"></i> Post Announcements
+       </a>
+     </li>
+     <li>
+       <a href="view_feedback.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+       <i class="fas fa-comments"></i> Feedbacks and Reporting
+       </a>
+     </li>
+     <br>
+     <li>
+       <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+         <i class="fas fa-sign-out-alt"></i> Log Out
+       </a>
+     </li>
+   </ul>
+ </div>
 
     <!--Main-->
     <div class="flex-1 px-8 py-6 ">

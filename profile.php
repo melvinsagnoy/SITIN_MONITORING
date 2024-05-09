@@ -99,28 +99,51 @@ $db->close();
             </div>
         </div>
         <ul class="mt-6 bg-gray-600">
-            <li>
-                <a href="profile.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-                    <i class="fas fa-user"></i> View Profile
-                </a>
-            </li>
-            <li>
-                <a href="view_remaining.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-                    <i class="fas fa-clock"></i> View Remaining Session
-                </a>
-            </li>
-            <li>
-                <a href="history.php" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
-                    <i class="fas fa-history"></i> Sitin Login History
-                </a>
-            </li>
-            <br>
-            <li>
-                <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-                    <i class="fas fa-sign-out-alt"></i> Log Out
-                </a>
-            </li>
-        </ul>
+      <li>
+        <a href="profile.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+          <i class="fas fa-user"></i> View Profile
+        </a>
+      </li>
+      <li>
+        <a href="view_remaining.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+          <i class="fas fa-clock"></i> View Remaining Session
+        </a>
+      </li>
+      <li>
+        <a href="history.php" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
+          <i class="fas fa-history"></i> Sitin Login History
+        </a>
+      </li>
+      <li>
+        <a href="feedback.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+        <i class="fas fa-comments"></i> Feedback and Reporting
+        </a>
+      </li>
+      <li>
+        <a href="safety.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+        <i class="fas fa-bell"></i> Safety Monitoring/Alert
+        </a>
+      </li>
+      <li>
+        <a href="view_a.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+        <i class="fa fa-bullhorn"></i> View Announcement
+        </a>
+      </li>
+      <li>
+        <a href="reservation.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+          <i class="fas fa-desktop"></i> Future Reservation
+        </a>
+      </li>
+
+
+      <br>
+      <li>
+        <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+          <i class="fas fa-sign-out-alt"></i> Log Out
+        </a>
+      </li>
+
+    </ul>
     </div>
 
     <div class="flex-1 px-8 py-6">
@@ -133,7 +156,6 @@ $db->close();
             <h2 class="text-6xl font-semibold mb-6 text-green-400">Student Profile</h2>
         </center>
 
-        <!-- Profile Form -->
         <div class="max-w-xl mx-auto bg-gray-700 shadow-md rounded px-8 pt-6 pb-8 mb-4 slide-in-from-left">
             
             <form method="POST" action="" class="mt-8">

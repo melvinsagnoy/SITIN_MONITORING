@@ -87,24 +87,25 @@
       </li>
       <li>
         <a href="feedback.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          <i class="fas fa-thumbs-up"></i> Feedback and Reporting
+        <i class="fas fa-comments"></i> Feedback and Reporting
         </a>
       </li>
       <li>
         <a href="safety.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          <i class="fas fa-thumbs-up"></i> Safety Monitoring/Alert
+        <i class="fas fa-bell"></i> Safety Monitoring/Alert
         </a>
       </li>
       <li>
         <a href="view_a.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          <i class="fas fa-thumbs-up"></i> View Announcement
+        <i class="fa fa-bullhorn"></i> View Announcement
         </a>
       </li>
       <li>
         <a href="reservation.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          <i class="fas fa-thumbs-up"></i> Future_reservation
+          <i class="fas fa-desktop"></i> Future Reservation
         </a>
       </li>
+
 
       <br>
       <li>
