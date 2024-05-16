@@ -86,6 +86,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_session'])) {
         $error_message = "Student ID is required";
     }
 }
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_password'])) {
+    $student_id = $_POST['id_number'] ?? '';
+    $new_password = $_POST['new_password'] ?? '';
+
+    if ($student_id && $new_password) {
+        $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
+        $update_password_query = $db->prepare("UPDATE student SET password = :password WHERE id_number = :id_number");
+        $update_password_query->bindValue(':password', $hashed_password, SQLITE3_TEXT);
+        $update_password_query->bindValue(':id_number', $student_id, SQLITE3_TEXT);
+        $update_password_result = $update_password_query->execute();
+
+        if ($update_password_result) {
+            $success_message = "Password reset successfully!";
+        } else {
+            $error_message = "Failed to reset password";
+        }
+    } else {
+        $error_message = "Student ID and new password are required";
+    }
+}
 ?>
 
 
@@ -259,10 +281,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_session'])) {
                                     <button type="submit" name="submit_sitin" class="mt-4 block w-full bg-gray-900 hover:bg-gray-500 text-green-400 hover:text-red-400 uppercase tracking-wider font-semibold rounded-md py-2">SITIN</button>
                                     
                                 </form>
-                                <!-- Form for resetting session count -->
+                                
                                 <form method="POST" action="">
                                     <input type="hidden" name="id_number" value="<?php echo $row['id_number']; ?>">
                                     <button type="submit" name="reset_session" class="mt-4 block w-full bg-gray-900 hover:bg-gray-500 text-red-400 hover:text-white uppercase tracking-wider font-semibold rounded-md py-2">Reset Session</button>
+                                </form>
+
+                                <form id="passwordForm" method="POST" action="">
+                                    <input type="hidden" name="id_number" value="<?php echo $row['id_number'];?>">
+                                    <h3 class="text-white text-lg mt-4">NEW PASSWORD</h3>
+                                    <div class="flex">
+                                        <input type="password" name="new_password" id="newPassword" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 text-black" required>
+                                    </div>
+                                    <h3 class="text-white text-lg mt-4">CONFIRM PASSWORD</h3>
+                                    <div class="flex">
+                                        <input type="password" name="confirm_password" id="confirmPassword" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 text-black" required>
+                                    </div>
+                                    <p id="passwordMismatch" style="color:red; display:none;">Passwords do not match.</p>
+                                    <button type="submit" name="reset_password" class="mt-4 block w-full bg-gray-900 hover:bg-gray-500 text-red-400 hover:text-white uppercase tracking-wider font-semibold rounded-md py-2">Reset Password</button>
                                 </form>
                             </div>
                         </div>
@@ -307,7 +343,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_session'])) {
       sidebar.classList.add('w-0');
     });
 
-    
+    document.getElementById('passwordForm').addEventListener('submit', function(event) {
+    var newPassword = document.getElementById('newPassword').value;
+    var confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (newPassword!== confirmPassword) {
+        event.preventDefault();
+        document.getElementById('passwordMismatch').style.display = 'block';
+    } else {0
+        document.getElementById('passwordMismatch').style.display = 'none';
+    }
+});
   </script>
 </body>
 

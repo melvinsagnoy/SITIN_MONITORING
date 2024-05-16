@@ -33,7 +33,9 @@ if ($query) {
 <div class="fixed inset-y-0 w-0 bg-white shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out bg-gray-600 text-white slide-in-from-left" id="sidebar">
         <div class="flex items-center justify-between px-4 mb-6 ">
             <div class="flex items-center">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/logo.png" alt="Logo" class="h-20 mr-4" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="student_dashboard.php">
+        <img src="img/logo.png" alt="Logo" class="h-20 mr-4" />
+    </a>
             </div>
             <div>
                 <button id="close-menu" class="focus:outline-none">
