@@ -96,6 +96,11 @@
             <i class="fas fa-file"></i> Feedbacks and Reporting
           </a>
         </li>
+        <li>
+          <a href="approval.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+            <i class="fas fa-file"></i> Booking Request and Approval
+          </a>
+        </li>
         <br>
         <li>
           <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
@@ -150,30 +155,30 @@
     </div>
 </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const sidebar = document.getElementById('sidebar');
-      sidebar.classList.remove('w-64');
-      sidebar.classList.add('w-0');
-    });
-
-    const menuToggle = document.getElementById('menu-toggle');
-    const closeMenuButton = document.getElementById('close-menu');
-    const sidebar = document.getElementById('sidebar');
-
-    menuToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('w-64');
-      if (sidebar.classList.contains('w-64')) {
-        sidebar.classList.remove('w-0');
-      } else {
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.remove('w-64');
         sidebar.classList.add('w-0');
-      }
-    });
+      });
 
-    closeMenuButton.addEventListener('click', () => {
-      sidebar.classList.remove('w-64');
-      sidebar.classList.add('w-0');
-    });
+      const menuToggle = document.getElementById('menu-toggle');
+      const closeMenuButton = document.getElementById('close-menu');
+      const sidebar = document.getElementById('sidebar');
+
+      menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('w-64');
+        if (sidebar.classList.contains('w-64')) {
+          sidebar.classList.remove('w-0');
+        } else {
+          sidebar.classList.add('w-0');
+        }
+      });
+
+      closeMenuButton.addEventListener('click', () => {
+        sidebar.classList.remove('w-64');
+        sidebar.classList.add('w-0');
+      });
   </script>
 
 </body>
