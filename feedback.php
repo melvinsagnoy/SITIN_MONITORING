@@ -33,11 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body class="flex min-h-screen bg-gray-900 text-white">
 
-    <!-- Sidebar -->
+    
     <div class="fixed inset-y-0 w-0 bg-white shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out bg-gray-600 text-white slide-in-from-left" id="sidebar">
         <div class="flex items-center justify-between px-4 mb-6 ">
             <div class="flex items-center">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/logo.png" alt="Logo" class="h-20 mr-4" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="student_dashboard.php">
+        <img src="img/logo.png" alt="Logo" class="h-20 mr-4" />
+    </a>
             </div>
             <div>
                 <button id="close-menu" class="focus:outline-none">
@@ -48,28 +50,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
         <ul class="mt-6 bg-gray-600">
-            <li>
-                <a href="profile.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-                    <i class="fas fa-user"></i> View Profile
-                </a>
-            </li>
-            <li>
-                <a href="view_remaining.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-                    <i class="fas fa-clock"></i> View Remaining Session
-                </a>
-            </li>
-            <li>
-                <a href="history.php" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
-                    <i class="fas fa-history"></i> Sitin Login History
-                </a>
-            </li>
-            <br>
-            <li>
-                <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-                    <i class="fas fa-sign-out-alt"></i> Log Out
-                </a>
-            </li>
-        </ul>
+      <li>
+        <a href="profile.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+          <i class="fas fa-user"></i> View Profile
+        </a>
+      </li>
+      <li>
+        <a href="view_remaining.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+          <i class="fas fa-clock"></i> View Remaining Session
+        </a>
+      </li>
+      <li>
+        <a href="history.php" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
+          <i class="fas fa-history"></i> Sitin Login History
+        </a>
+      </li>
+      <li>
+        <a href="feedback.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+        <i class="fas fa-comments"></i> Feedback and Reporting
+        </a>
+      </li>
+      <li>
+        <a href="safety.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+        <i class="fas fa-bell"></i> Safety Monitoring/Alert
+        </a>
+      </li>
+      <li>
+        <a href="view_a.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+        <i class="fa fa-bullhorn"></i> View Announcement
+        </a>
+      </li>
+      <li>
+        <a href="reservation.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+          <i class="fas fa-desktop"></i> Future Reservation
+        </a>
+      </li>
+
+
+      <br>
+      <li>
+        <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+          <i class="fas fa-sign-out-alt"></i> Log Out
+        </a>
+      </li>
+
+    </ul>
     </div>
 
     <div class="flex-1 px-8 py-6">

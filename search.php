@@ -86,6 +86,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_session'])) {
         $error_message = "Student ID is required";
     }
 }
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_password'])) {
+    $student_id = $_POST['id_number'] ?? '';
+    $new_password = $_POST['new_password'] ?? '';
+
+    if ($student_id && $new_password) {
+        $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
+        $update_password_query = $db->prepare("UPDATE student SET password = :password WHERE id_number = :id_number");
+        $update_password_query->bindValue(':password', $hashed_password, SQLITE3_TEXT);
+        $update_password_query->bindValue(':id_number', $student_id, SQLITE3_TEXT);
+        $update_password_result = $update_password_query->execute();
+
+        if ($update_password_result) {
+            $success_message = "Password reset successfully!";
+        } else {
+            $error_message = "Failed to reset password";
+        }
+    } else {
+        $error_message = "Student ID and new password are required";
+    }
+}
 ?>
 
 
@@ -118,50 +140,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_session'])) {
 
 <body class="flex min-h-screen bg-gray-800 font-mono text-white">
 
-    <div class="fixed inset-y-0 left-0 w-64 bg-gray-700 shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out"
-        id="sidebar">
-        <div class="flex items-center justify-between px-4 mb-6">
-        <a href="admin_dashboard.php">
-        <img src="img/logo.png" alt="Logo" class="h-20 mr-4" />
-    </a>
-            <button id="close-menu" class="focus:outline-none">
-                <svg class="h-6 w-6 hover:text-white-200 " viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M6 18L18 6M6 6L18 18"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round"></path>
-                </svg>
-            </button>
-        </div>
-        <ul class="space-y-2 px-4">
-        <li>
-        <a href="search.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block"><i class="fas fa-search"></i> Search
-        </a>
-      </li>
-      <li>
-        <a href="delete_admin.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-        <i class = "fas fa-trash"></i>  Delete
-        </a>
-      </li>
-      <li>
-        <a href="view_records.php" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
-          <i class = "fas fa-eye"></i> View Sitin Records
-        </a>
-      </li>
-      <li>
-        <a href="generate_reports.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          <i class = "fas fa-file"></i> Generate Reports
-        </a>
-      </li>
-      <br>
-      <li>
-        <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-        <i class = "fas fa-sign-out-alt"></i> Log Out
-        </a>
-      </li>
-        </ul>
-    </div>
+<div class="fixed inset-y-0 w-64 bg-white shadow pt-5 h-screen overflow-auto transition duration-300 ease-in-out bg-gray-600 text-white" id="sidebar">
+     
+     <div class="flex items-center justify-between px-4 mb-6">
+     <a href="admin_dashboard.php">
+     <img src="img/logo.png" alt="Logo" class="h-20 mr-4" />
+ </a>
+         <button id="close-menu" class="focus:outline-none">
+             <svg class="h-6 w-6 hover:text-white-200" viewBox="0 0 24 24" fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+                 <path
+                     d="M6 18L18 6M6 6L18 18"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                     stroke-linejoin="round"></path>
+             </svg>
+         </button>
+     </div>
+     <ul class="mt-6 bg-gray-600">
+     <li>
+       <a href="search.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block"><i class="fas fa-search"></i> Search
+       </a>
+     </li>
+     <li>
+       <a href="delete_admin.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+         <i class="fas fa-trash"></i> Delete
+       </a>
+     </li>
+     <li>
+       <a href="view_records.php" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
+         <i class="fas fa-eye"></i> View Sitin Records
+       </a>
+     </li>
+     <li>
+       <a href="generate_reports.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+         <i class="fas fa-file"></i> Generate Reports
+       </a>
+     </li>
+     <li>
+       <a href="post_a.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+       <i class="fa fa-bullhorn"></i> Post Announcements
+       </a>
+     </li>
+     <li>
+       <a href="view_feedback.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+       <i class="fas fa-comments"></i> Feedbacks and Reporting
+       </a>
+     </li>
+     <br>
+     <li>
+       <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+         <i class="fas fa-sign-out-alt"></i> Log Out
+       </a>
+     </li>
+   </ul>
+ </div>
 
     <div class="flex-1 px-8 py-6">
         <button id="menu-toggle" class="focus:outline-none">
@@ -249,10 +281,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_session'])) {
                                     <button type="submit" name="submit_sitin" class="mt-4 block w-full bg-gray-900 hover:bg-gray-500 text-green-400 hover:text-red-400 uppercase tracking-wider font-semibold rounded-md py-2">SITIN</button>
                                     
                                 </form>
-                                <!-- Form for resetting session count -->
+                                
                                 <form method="POST" action="">
                                     <input type="hidden" name="id_number" value="<?php echo $row['id_number']; ?>">
                                     <button type="submit" name="reset_session" class="mt-4 block w-full bg-gray-900 hover:bg-gray-500 text-red-400 hover:text-white uppercase tracking-wider font-semibold rounded-md py-2">Reset Session</button>
+                                </form>
+
+                                <form id="passwordForm" method="POST" action="">
+                                    <input type="hidden" name="id_number" value="<?php echo $row['id_number'];?>">
+                                    <h3 class="text-white text-lg mt-4">NEW PASSWORD</h3>
+                                    <div class="flex">
+                                        <input type="password" name="new_password" id="newPassword" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 text-black" required>
+                                    </div>
+                                    <h3 class="text-white text-lg mt-4">CONFIRM PASSWORD</h3>
+                                    <div class="flex">
+                                        <input type="password" name="confirm_password" id="confirmPassword" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 text-black" required>
+                                    </div>
+                                    <p id="passwordMismatch" style="color:red; display:none;">Passwords do not match.</p>
+                                    <button type="submit" name="reset_password" class="mt-4 block w-full bg-gray-900 hover:bg-gray-500 text-red-400 hover:text-white uppercase tracking-wider font-semibold rounded-md py-2">Reset Password</button>
                                 </form>
                             </div>
                         </div>
@@ -297,7 +343,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_session'])) {
       sidebar.classList.add('w-0');
     });
 
-    
+    document.getElementById('passwordForm').addEventListener('submit', function(event) {
+    var newPassword = document.getElementById('newPassword').value;
+    var confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (newPassword!== confirmPassword) {
+        event.preventDefault();
+        document.getElementById('passwordMismatch').style.display = 'block';
+    } else {0
+        document.getElementById('passwordMismatch').style.display = 'none';
+    }
+});
   </script>
 </body>
 

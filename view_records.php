@@ -49,6 +49,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
   $success_message = 'Student logged out successfully.';
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['time_in'])) {
+  $student_id = $_POST['student_id'] ?? '';
+
+  $query = $db->prepare("
+      UPDATE sitin_student
+      SET time_in = CURRENT_TIMESTAMP
+      WHERE id_number = :student_id
+  ");
+  $query->bindValue(':student_id', $student_id, SQLITE3_INTEGER);
+  $query->execute();
+
+  $success_message = 'Student time in recorded successfully.';
+}
+
+
+
 // Fetch purpose data for pie chart
 $purposeQuery = $db->prepare("
   SELECT purpose, COUNT(*) as count
@@ -123,58 +139,71 @@ while ($row = $labResult->fetchArray(SQLITE3_ASSOC)) {
 </head>
 
 <body class="flex min-h-screen bg-gray-800 font-mono text-white">
-
-  <div id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-gray-700 shadow pt-5 h-screen overflow-auto ">
+  <div id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-gray-700 shadow pt-5 h-screen overflow-auto">
     <div class="flex items-center justify-between px-4 mb-6">
       <a href="admin_dashboard.php">
         <img src="img/logo.png" alt="Logo" class="h-20 mr-4" />
       </a>
       <button id="close-menu" class="focus:outline-none">
-        <svg class="h-6 w-6 hover:text-white-200 " viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round"></path>
+        <svg class="h-6 w-6 hover:text-white-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
       </button>
     </div>
     <ul class="space-y-2 px-4">
-      <li>
-        <a href="search.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block"><i class="fas fa-search"></i> Search
-        </a>
-      </li>
-      <li>
-        <a href="delete_admin.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          <i class="fas fa-trash"></i> Delete
-        </a>
-      </li>
-      <li>
-        <a href="view_records.php" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
-          <i class="fas fa-eye"></i> View Sitin Records
-        </a>
-      </li>
-      <li>
-        <a href="generate_reports.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          <i class="fas fa-file"></i> Generate Reports
-        </a>
-      </li>
-      <br>
-      <li>
-        <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          <i class="fas fa-sign-out-alt"></i> Log Out
-        </a>
-      </li>
+    <li>
+          <a href="search.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block"><i class="fas fa-search"></i> Search
+          </a>
+        </li>
+        <li>
+          <a href="delete_admin.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+            <i class="fas fa-trash"></i> Delete
+          </a>
+        </li>
+        <li>
+          <a href="view_records.php" class="text-gray-200 hover:text-white font-medium hover:bg-gray-400 px-4 py-2 rounded-md block active">
+            <i class="fas fa-eye"></i> View Sitin Records
+          </a>
+        </li>
+        <li>
+          <a href="generate_reports.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+            <i class="fas fa-file"></i> Generate Reports
+          </a>
+        </li>
+        <li>
+          <a href="post_a.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+          <i class="fa fa-bullhorn"></i> Post Announcements
+          </a>
+        </li>
+        <li>
+          <a href="view_feedback.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+          <i class="fas fa-comments"></i> Feedbacks and Reporting
+          </a>
+        </li>
+        <li>
+          <a href="approval.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+            <i class="fas fa-file"></i> Booking Request and Approval
+          </a>
+        </li>
+        <br>
+        <li>
+          <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+            <i class="fas fa-sign-out-alt"></i> Log Out
+          </a>
+        </li>
     </ul>
   </div>
 
-  <div class="flex-1 px-8 py-6 ">
+  <div class="flex-1 px-8 py-6">
     <button id="menu-toggle" class="focus:outline-none">
       <svg class="h-6 w-6 text-white hover:text-gray-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 6H20M4 12H20M4 18H11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round"></path>
+        <path d="M4 6H20M4 12H20M4 18H11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
       </svg>
     </button>
     <center>
-      <h2 class="text-4xl font-semibold mb-6 text-green-400">Sitin Records</h2>
+      <h2 class="text-4xl font-semibold mb-6 text-green-400">Admin Dashboard</h2>
     </center>
+
 
     <!-- Filter para sa generate reports -->
     <div class="mt-8">
@@ -186,7 +215,7 @@ while ($row = $labResult->fetchArray(SQLITE3_ASSOC)) {
         <input class="rounded-lg text-black" type="date" id="end_date" name="end_date">
 
         <button type="submit" name="generate_reports" class="border-solid bg-green-400 text-black text-base rounded-lg">SEARCH</button>
-        <button type="button" id="viewDataAnalytics" class="border-solid bg-blue-400 text-black text-base rounded-lg ml-2 px-4 py-2 inline-block">VIEW DATA ANALYTICS</button>
+        
       </form>
     </div>
 
@@ -203,8 +232,7 @@ while ($row = $labResult->fetchArray(SQLITE3_ASSOC)) {
             </svg>
           </button>
         </div>
-        <button type="button" id="viewPurposeAnalytics" class="w-full bg-green-500 text-black rounded-lg py-2 mb-4">View Purpose Analytics</button>
-        <button type="button" id="viewLabAnalytics" class="w-full bg-blue-500 text-black rounded-lg py-2">View Lab Analytics</button>
+        
       </div>
     </div>
 
@@ -275,6 +303,14 @@ while ($row = $labResult->fetchArray(SQLITE3_ASSOC)) {
                     <button type="submit" name="logout" class="text-red-500 hover:text-red-700 px-2 py-1 rounded-md focus:outline-none">Logout</button>
                   </form>
                 </td>
+                <td class="px-4 py-2">
+        <?php if ($row['status'] === 'accepted'): ?>
+            <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <input type="hidden" name="student_id" value="<?php echo $row['id_number']; ?>">
+                <button type="submit" name="time_in" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Time In</button>
+            </form>
+        <?php endif; ?>
+    </td>
               </tr>
             <?php endwhile; ?>
           </tbody>
@@ -288,28 +324,28 @@ while ($row = $labResult->fetchArray(SQLITE3_ASSOC)) {
   <!-- JavaScript para sidebar nga toggle -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const sidebar = document.getElementById('sidebar');
-      sidebar.classList.remove('w-64');
-      sidebar.classList.add('w-0');
-    });
-
-    const menuToggle = document.getElementById('menu-toggle');
-    const closeMenuButton = document.getElementById('close-menu');
-    const sidebar = document.getElementById('sidebar');
-
-    menuToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('w-64');
-      if (sidebar.classList.contains('w-64')) {
-        sidebar.classList.remove('w-0');
-      } else {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.remove('w-64');
         sidebar.classList.add('w-0');
-      }
-    });
+      });
 
-    closeMenuButton.addEventListener('click', () => {
-      sidebar.classList.remove('w-64');
-      sidebar.classList.add('w-0');
-    });
+      const menuToggle = document.getElementById('menu-toggle');
+      const closeMenuButton = document.getElementById('close-menu');
+      const sidebar = document.getElementById('sidebar');
+
+      menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('w-64');
+        if (sidebar.classList.contains('w-64')) {
+          sidebar.classList.remove('w-0');
+        } else {
+          sidebar.classList.add('w-0');
+        }
+      });
+
+      closeMenuButton.addEventListener('click', () => {
+        sidebar.classList.remove('w-64');
+        sidebar.classList.add('w-0');
+      });
 
     // JavaScript for modal functionality
     const viewDataAnalyticsButton = document.getElementById('viewDataAnalytics');
