@@ -87,6 +87,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_session'])) {
     }
 }
 
+function resetAllSessions() {
+    global $db; // Declare $db as global inside the function
+
+    // Update the remaining session count for all students to 30
+    $update_query = $db->prepare("UPDATE sitin_student SET remaining_sessions = 30");
+    $update_result = $update_query->execute();
+
+    // Check if the update was successful
+    if ($update_result) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_all_sessions'])) {
+    // Call the function to reset session count for all students
+    if (resetAllSessions()) {
+        $success_message = "All student sessions reset successfully!";
+    } else {
+        $error_message = "Failed to reset all student sessions";
+    }
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_password'])) {
     $student_id = $_POST['id_number'] ?? '';
@@ -186,6 +209,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_password'])) {
        <i class="fas fa-comments"></i> Feedbacks and Reporting
        </a>
      </li>
+     <li>
+          <a href="approval.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+            <i class="fas fa-file"></i> Booking Request and Approval
+          </a>
+        </li>
+        <li>
+    <a href="analytics.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+        <i class="fas fa-chart-pie"></i> Daily Analytics
+    </a>
+</li>
      <br>
      <li>
        <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
@@ -219,6 +252,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_password'])) {
                 </div>
             </form>
         </div>
+
+        <form method="POST" action="">
+    <button type="submit" name="reset_all_sessions" class="mt-4 block w-full bg-gray-900 hover:bg-gray-500 text-red-400 hover:text-white uppercase tracking-wider font-semibold rounded-md py-2">Reset All Students Sessions</button>
+</form>
 
         <div class="mt-8">
             <?php
@@ -286,6 +323,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_password'])) {
                                     <input type="hidden" name="id_number" value="<?php echo $row['id_number']; ?>">
                                     <button type="submit" name="reset_session" class="mt-4 block w-full bg-gray-900 hover:bg-gray-500 text-red-400 hover:text-white uppercase tracking-wider font-semibold rounded-md py-2">Reset Session</button>
                                 </form>
+                                
 
                                 <form id="passwordForm" method="POST" action="">
                                     <input type="hidden" name="id_number" value="<?php echo $row['id_number'];?>">

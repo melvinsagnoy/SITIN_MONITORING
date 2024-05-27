@@ -7,14 +7,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $db = new SQLite3('sitin.db');
 
     $feedback = $_POST['feedback'] ?? '';
-    
-    // Get student ID from session
-  
+    $student_id = $_SESSION['id_number'] ?? ''; // Get student ID from session
 
     // Insert feedback into the database along with the student ID
-    $query = $db->prepare("INSERT INTO feedback (feedback_content, created_at) VALUES (:content, CURRENT_TIMESTAMP)");
+    $query = $db->prepare("INSERT INTO feedback (id_number, feedback_content, created_at) VALUES (:id_number, :content, CURRENT_TIMESTAMP)");
+    $query->bindValue(':id_number', $student_id, SQLITE3_TEXT);
     $query->bindValue(':content', $feedback, SQLITE3_TEXT);
-   
     $query->execute();
 
     // Optionally, you can display a success message or perform other actions
@@ -116,38 +114,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form action="" method="POST" class="max-w-md">
                 <label for="feedback" class="block text-gray-300 mb-2">Feedback:</label>
                 <textarea id="feedback" name="feedback" rows="4" class="bg-gray-800 text-gray-300 rounded-md w-full px-4 py-2 mb-4" placeholder="Enter your feedback here..."></textarea>
+                <label for="student_id" class="block text-gray-300 mb-2">Student ID:</label>
+                <input type="text" id="student_id" name="student_id" class="bg-gray-800 text-gray-300 rounded-md w-full px-4 py-2 mb-4" placeholder="Enter your student ID...">
                 <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md">Submit Feedback</button>
             </form>
             <?php
-            // Check if the form has been submitted
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                // Check if feedback is not empty
-                if (!empty($_POST['feedback'])) {
-                    // Display a message after feedback submission
-                    echo "<p class='text-green-500 mt-4'>Feedback submitted successfully.</p>";
-                }
-            }
-            ?>
-        </div>
-    </div>
-</body>
-<script>
-        const menuToggle = document.getElementById('menu-toggle');
-        const closeMenuButton = document.getElementById('close-menu');
-        const sidebar = document.getElementById('sidebar');
-
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('w-64'); // Toggle sidebar width
-            if (sidebar.classList.contains('w-64')) {
-                sidebar.classList.remove('w-0');
-            } else {
-                sidebar.classList.add('w-0');
-            }
-        });
-
-        closeMenuButton.addEventListener('click', () => {
-            sidebar.classList.remove('w-64');
+            // Check if the form has beensubmitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // Check if feedback is not empty
+  if (!empty($_POST['feedback'])) {
+  // Display a message after feedback submission
+  echo "<p class='text-green-500 mt-4'>Feedback submitted successfully.</p>";
+  }
+  }
+  ?>
+  </div>
+  </div>
+  
+  </body>
+  <script>
+          const menuToggle = document.getElementById('menu-toggle');
+          const closeMenuButton = document.getElementById('close-menu');
+          const sidebar = document.getElementById('sidebar');
+          menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('w-64'); // Toggle sidebar width
+        if (sidebar.classList.contains('w-64')) {
+            sidebar.classList.remove('w-0');
+        } else {
             sidebar.classList.add('w-0');
-        });
-    </script>
-</html>
+        }
+    });
+
+    closeMenuButton.addEventListener('click', () => {
+        sidebar.classList.remove('w-64');
+        sidebar.classList.add('w-0');
+    });
+</script>
+  </body>
+  </html>

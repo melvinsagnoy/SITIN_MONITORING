@@ -75,6 +75,16 @@ if ($query) {
        <i class="fas fa-comments"></i> Feedbacks and Reporting
        </a>
      </li>
+     <li>
+          <a href="approval.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+            <i class="fas fa-file"></i> Booking Request and Approval
+          </a>
+        </li>
+        <li>
+    <a href="analytics.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+        <i class="fas fa-chart-pie"></i> Daily Analytics
+    </a>
+</li>
      <br>
      <li>
        <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
@@ -96,6 +106,7 @@ if ($query) {
                 <?php foreach ($feedback_entries as $entry): ?>
                     <div class="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden shadow-lg mb-4">
                         <div class="px-6 py-4">
+                        <p class="text-gray-300 mb-2"><strong>ID Number:</strong> <?php echo $entry['id_number']; ?></p>
                             <p class="text-gray-300 mb-2"><strong>Feedback:</strong> <?php echo $entry['feedback_content']; ?></p>
                             <p class="text-gray-400"><strong>Created At:</strong> <?php echo $entry['created_at']; ?></p>
                         </div>

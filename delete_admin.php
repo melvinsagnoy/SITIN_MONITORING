@@ -93,10 +93,15 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
           </a>
         </li>
         <li>
-          <a href="view_feedback.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
-          <i class="fas fa-comments"></i> Feedbacks and Reporting
+          <a href="approval.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+            <i class="fas fa-file"></i> Booking Request and Approval
           </a>
         </li>
+        <li>
+    <a href="analytics.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">
+        <i class="fas fa-chart-pie"></i> Daily Analytics
+    </a>
+</li>
         <br>
         <li>
           <a href="login.php" class="text-gray-200 hover:text-white hover:bg-gray-400 font-medium px-4 py-2 rounded-md block">

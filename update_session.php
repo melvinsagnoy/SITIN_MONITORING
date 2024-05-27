@@ -19,4 +19,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['student_id'])) {
         echo json_encode(array('success' => false, 'message' => 'Failed to update session count'));
     }
 }
-?>
+?>z
